@@ -1,10 +1,11 @@
 <script>
+    import { link } from 'svelte-navigator';
     export let options;
 </script>
 
 <ul>
     {#each options as option}
-        <li><button>{option.title}</button></li>
+        <li><a href={option.path} use:link>{option.title}</a></li>
     {/each}
 </ul>
 
@@ -24,7 +25,7 @@
         display: inline-flex;
     }
 
-    button {
+    /* ul > li > a {
         margin: 0;
         padding: 0;
         background-color: unset;
@@ -32,5 +33,5 @@
         border: none;
         font-size: 1rem;
         cursor: pointer;
-    }
+    } */
 </style>
