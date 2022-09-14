@@ -1,5 +1,5 @@
 :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
@@ -9,4 +9,37 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    color: #fbfbfe;
+    background-color: #2b2a33;
+}
+
+button,
+input {
+    background-color: #42414d;
+}
+
+a {
+    color: orange;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    border: solid 0.1rem gray;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    color: #fbfbfe;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555364;
+}
+
+button:active {
+    background-color: #34323d;
 }
