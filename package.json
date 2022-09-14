@@ -7,15 +7,17 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "check-updates": "pnpm dlx npm-check-updates",
+        "apply-updates": "pnpm dlx npm-check-updates -u"
     },
     "devDependencies": {
-        "@sveltejs/vite-plugin-svelte": "^1.0.2",
+        "@sveltejs/vite-plugin-svelte": "^1.0.5",
         "husky": "^8.0.1",
         "lint-staged": "^13.0.3",
         "prettier": "^2.7.1",
         "prettier-plugin-svelte": "^2.7.0",
-        "svelte": "^3.49.0",
+        "svelte": "^3.50.1",
         "vite": "^3.1.0"
     },
     "lint-staged": {
