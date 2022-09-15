@@ -8,10 +8,13 @@
 </main>
 
 <style>
+    h2 {
+        margin-top: 2rem;
+    }
     main {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        padding: 1rem;
+        margin: 1rem;
     }
 </style>

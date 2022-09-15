@@ -8,6 +8,9 @@
 </section>
 
 <style>
+    h2 {
+        margin-top: 2rem;
+    }
     section {
         display: flex;
         flex-direction: column;
