@@ -1,14 +1,11 @@
 <script>
-    import PageWrapper from '../lib/PageWrapper.svelte';
+    import Wrapper from '../lib/Page/Wrapper.svelte';
+    import Title from '../lib/Page/Title.svelte';
+    import Paragraph from '../lib/Page/Paragraph.svelte';
 </script>
 
-<PageWrapper title="Home page">
-    <p>Hi! This is my personal website</p>
-    <p>here is where I store all my little projects</p>
-</PageWrapper>
-
-<style>
-    p {
-        line-height: 2rem;
-    }
-</style>
+<Wrapper>
+    <Title>Home Page</Title>
+    <Paragraph>Hi! This is my personal website</Paragraph>
+    <Paragraph>Here is where I store all my blog posts and little projects</Paragraph>
+</Wrapper>

@@ -1,10 +1,18 @@
 <script>
+    import { onMount } from 'svelte';
+
     import { Router, Route } from 'svelte-navigator';
+    import Header from './lib/Header/Header.svelte';
+    import Wrapper from './lib/Page/Wrapper.svelte';
+
+    /* Pages Import */
     import HomePage from './pages/HomePage.svelte';
     import AboutPage from './pages/AboutPage.svelte';
     import ToolsPage from './pages/ToolsPage.svelte';
-    import Header from './lib/Header.svelte';
-    import Footer from './lib/Footer.svelte';
+
+    onMount(() => {
+        document.querySelector('noscript').remove();
+    });
 </script>
 
 <Router>
@@ -16,14 +24,7 @@
             ['Tools']: '/tools',
         }}
     />
-    <Route path="about">
-        <AboutPage />
-    </Route>
-    <Route path="tools">
-        <ToolsPage />
-    </Route>
-    <Route path="/">
-        <HomePage />
-    </Route>
-    <Footer copyrightYear="2022" authorName="Lucien Cupcakes" />
+    <Route path="about" component={AboutPage} />
+    <Route path="tools" component={ToolsPage} />
+    <Route path="/" component={HomePage} />
 </Router>

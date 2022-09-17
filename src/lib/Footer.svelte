@@ -17,9 +17,8 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        padding: 1rem;
-        opacity: 0.8;
+        margin-top: 1rem;
         font-weight: 300;
-        /* font-style: italic; */
+        opacity: 0.8;
     }
 </style>

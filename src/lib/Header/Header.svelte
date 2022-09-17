@@ -1,27 +1,31 @@
 <script>
-    import NavBar from '../lib/NavBar.svelte';
+    import NavBar from './NavBar.svelte';
+    import Logo from './Logo.svelte';
+    import convertRoutesToNavBarOptions from '../../util/convertRoutesToNavBarOptions.js';
     export let title;
     export let routes;
-
-    const options = [];
-    for (const key of Object.keys(routes)) {
-        options.push({ title: key, path: routes[key] });
-    }
+    const navBarOptions = convertRoutesToNavBarOptions(routes);
 </script>
 
 <header>
     <section class="container">
-        <img src="pepe.png" alt="Pepe the frog" />
+        <Logo />
         <section class="title-nav">
             <h1>{title}</h1>
-            <NavBar {options} />
+            <NavBar options={navBarOptions} />
         </section>
     </section>
 </header>
 
 <style>
     header {
+        display: flex;
+        flex-direction: column;
         width: 100%;
+        align-items: center;
+        justify-content: center;
+        height: 20rem;
+        background-color: #2e2e2e;
     }
 
     .container {
@@ -47,11 +51,5 @@
         font-weight: 700;
         letter-spacing: 0.2rem;
         color: #49ebb1;
-    }
-
-    img {
-        width: 8rem;
-        background-color: #785d4a;
-        border-radius: 4rem;
     }
 </style>

@@ -5,6 +5,6 @@
 </script>
 
 <Wrapper>
-    <Title>Tools</Title>
-    <Paragraph>Here you can find all my crazy projects</Paragraph>
+    <Title>Blog</Title>
+    <Paragraph>This section is for showing my blog posts!</Paragraph>
 </Wrapper>

@@ -1,16 +1,8 @@
-<script>
-    export let title = '';
-</script>
-
 <section>
-    {#if title.length > 0}<h2>{title}</h2>{/if}
     <slot />
 </section>
 
 <style>
-    h2 {
-        margin-top: 2rem;
-    }
     section {
         display: flex;
         flex-direction: column;
