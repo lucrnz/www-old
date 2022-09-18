@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { Router, Route } from 'svelte-navigator';
     import Header from './lib/Header/Header.svelte';
     import HomePage from './pages/HomePage.svelte';
@@ -12,9 +12,9 @@
         title="Luc's Website"
         routes={{
             ['Home']: '/',
-            ['About']: '/about',
             ['Blog']: '/blog',
             ['Tools']: '/tools',
+            ['About']: '/about',
         }}
     />
     <Route path="about" component={AboutPage} />
@@ -22,3 +22,110 @@
     <Route path="blog" component={BlogPage} />
     <Route path="/" component={HomePage} />
 </Router>
+
+<style lang="scss">
+    :global {
+        :root {
+            font-family: 'Poppins', Inter, Avenir, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 400;
+
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+
+            color: #fbfbfe;
+            background-color: #282525;
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-1rem);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOutLeft {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-1rem);
+            }
+        }
+
+        .animate-fade-out-left {
+            animation-name: fadeOutLeft;
+            animation-duration: 0.5s;
+        }
+
+        .animate-fade-in-left {
+            animation-name: fadeInLeft;
+            animation-duration: 0.5s;
+        }
+
+        #app {
+            margin: 2rem 1rem 1rem 1rem;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        h1:focus,
+        h2:focus,
+        h3:focus,
+        p:focus {
+            outline-style: none;
+        }
+
+        button,
+        input {
+            background-color: #42414d;
+        }
+
+        a {
+            /* color: orange; */
+            color: #ff9737;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            border: solid 0.1rem gray;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            color: #fbfbfe;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555364;
+        }
+
+        button:active {
+            background-color: #34323d;
+        }
+    }
+</style>

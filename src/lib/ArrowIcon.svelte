@@ -1,10 +1,10 @@
-<script>
-    import mapToCssVariables from '../util/mapToCssVariables.js';
+<script lang="ts">
+    import mapToCssVariables from '../util/mapToCssVariables';
     export let sizeRem = 0.7;
     export let direction = 'up';
     export let color = window.getComputedStyle(document.body).color;
 
-    let getRotationByDirection = {
+    let getRotationByDirection: { [key: string]: string } = {
         up: '-135deg',
         down: '45deg',
         left: '135deg',

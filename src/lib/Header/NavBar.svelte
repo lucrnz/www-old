@@ -1,6 +1,7 @@
 <script lang="ts">
+    import type { NavBarOption } from '../../types/navBar';
     import { link, useLocation } from 'svelte-navigator';
-    export let options: { path: string; title: string }[];
+    export let options: NavBarOption[];
     const location = useLocation();
 </script>
 

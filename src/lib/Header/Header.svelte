@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
+    import type { NavBarRoutes } from '../../types/navBar';
+    import convertRoutesToNavBarOptions from '../../util/convertRoutesToNavBarOptions';
     import NavBar from './NavBar.svelte';
     import Logo from './Logo.svelte';
-    import convertRoutesToNavBarOptions from '../../util/convertRoutesToNavBarOptions.js';
-    export let title;
-    export let routes;
+    export let title: string;
+    export let routes: NavBarRoutes;
     const navBarOptions = convertRoutesToNavBarOptions(routes);
 </script>
 
@@ -17,7 +18,7 @@
     </section>
 </header>
 
-<style>
+<style lang="scss">
     header {
         display: flex;
         flex-direction: column;
