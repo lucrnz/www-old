@@ -1,18 +1,10 @@
 <script>
-    import { onMount } from 'svelte';
-
     import { Router, Route } from 'svelte-navigator';
     import Header from './lib/Header/Header.svelte';
-    import Wrapper from './lib/Page/Wrapper.svelte';
-
-    /* Pages Import */
     import HomePage from './pages/HomePage.svelte';
     import AboutPage from './pages/AboutPage.svelte';
     import ToolsPage from './pages/ToolsPage.svelte';
-
-    onMount(() => {
-        document.querySelector('noscript').remove();
-    });
+    import BlogPage from './pages/Blog.svelte';
 </script>
 
 <Router>
@@ -21,10 +13,12 @@
         routes={{
             ['Home']: '/',
             ['About']: '/about',
+            ['Blog']: '/blog',
             ['Tools']: '/tools',
         }}
     />
     <Route path="about" component={AboutPage} />
     <Route path="tools" component={ToolsPage} />
+    <Route path="blog" component={BlogPage} />
     <Route path="/" component={HomePage} />
 </Router>
