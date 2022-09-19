@@ -1,10 +1,21 @@
-<div alt="Pepe the frog" aria-label="Pepe the frog" />
+<script lang="ts">
+    import mapToCssVariables from '../../util/mapToCssVariables';
+    import imageUrl from '../../assets/pepe.svg';
+</script>
 
-<style>
+<div
+    alt="Pepe the frog"
+    aria-label="Pepe the frog"
+    style={mapToCssVariables({
+        ['image-url']: `url(${imageUrl})`,
+    })}
+/>
+
+<style lang="scss">
     div {
         height: 8rem;
         width: 8rem;
-        background-image: url(pepe.svg);
+        background-image: var(--image-url);
         background-size: 7.5rem;
         background-repeat: no-repeat;
         background-position: center;

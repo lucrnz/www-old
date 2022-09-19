@@ -25,7 +25,7 @@
         width: 100%;
         align-items: center;
         justify-content: center;
-        height: 20rem;
+        height: 15rem;
         background-color: #2e2e2e;
     }
 
