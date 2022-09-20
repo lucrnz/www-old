@@ -1,5 +1,6 @@
 const getRemSizeInPixels = (value: number = 1): number => {
-    let sizePx: number = parseInt(window.getComputedStyle(document.body).fontSize);
+    const sizePxStr: string = window.getComputedStyle(document.body).fontSize.replaceAll('px', '');
+    const sizePx: number = parseInt(sizePxStr);
     if (value > 1) {
         return value * sizePx;
     }

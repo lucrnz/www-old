@@ -26,6 +26,8 @@
 </ul>
 
 <style lang="scss">
+    @use '../../variables.scss' as v;
+
     ul {
         display: flex;
         flex-direction: row;
@@ -43,8 +45,8 @@
 
     .nav-button {
         font-size: 1.75rem;
-        color: #fbfbfe;
-        border: 0.1rem solid #ff9737;
+        color: v.$white;
+        border: 0.1rem solid v.$primary;
         border-radius: 3rem;
         padding: 0.5rem 1rem 0.5rem 1rem;
 

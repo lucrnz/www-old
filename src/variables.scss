@@ -1,0 +1,15 @@
+// $black: #282525;
+$black: #232323;
+$white: #fefefb;
+$primary: #ff9737;
+$gray: #4d4841;
+$green: #49ebb1;
+
+@mixin flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+}

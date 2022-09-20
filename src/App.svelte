@@ -9,7 +9,7 @@
     import BlogPage from './pages/blog/BlogPage.svelte';
 </script>
 
-<Router>
+<Router primary={false}>
     <main id="app">
         <Header
             title={pageTitle}

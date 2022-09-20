@@ -19,31 +19,24 @@
 </header>
 
 <style lang="scss">
+    @use '../../variables' as v;
+
     header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: #2e2e2e;
-        width: 98vw;
+        background-color: scale-color(v.$black, $lightness: +5%);
+        width: 100vw;
         height: 15rem;
     }
 
     .container {
-        width: 65vw;
-        margin: auto;
-        display: flex;
+        @include v.flex-center;
         flex-direction: row;
-        align-items: center;
-        justify-items: center;
+        width: 65vw;
         gap: 1.5rem;
     }
 
     .title-nav {
-        display: flex;
+        @include v.flex-center;
         flex-direction: column;
-        align-items: center;
-        justify-items: center;
         gap: 1.5rem;
         margin-top: 1.2rem;
     }
@@ -52,6 +45,6 @@
         font-size: 3rem;
         font-weight: 700;
         letter-spacing: 0.2rem;
-        color: #49ebb1;
+        color: v.$green;
     }
 </style>
