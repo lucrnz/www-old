@@ -22,6 +22,7 @@
     @use '../../variables' as v;
 
     header {
+        @include v.flex-center;
         background-color: scale-color(v.$black, $lightness: +5%);
         width: 100vw;
         height: 15rem;
