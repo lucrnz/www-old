@@ -1,3 +1,2 @@
-const pageTitle: string = "%title% - Luc's Website";
-
-export default pageTitle;
+export const pageTitle: string = "Luc's Website";
+export const pageTitleFormat: string = `%title% - ${pageTitle}`;

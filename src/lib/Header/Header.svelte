@@ -22,20 +22,21 @@
     header {
         display: flex;
         flex-direction: column;
-        width: 100%;
         align-items: center;
         justify-content: center;
-        height: 15rem;
         background-color: #2e2e2e;
+        width: 98vw;
+        height: 15rem;
     }
 
     .container {
+        width: 65vw;
+        margin: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-items: center;
         gap: 1.5rem;
-        margin-left: 1rem;
     }
 
     .title-nav {

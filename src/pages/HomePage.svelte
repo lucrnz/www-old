@@ -2,6 +2,13 @@
     import Wrapper from '../lib/Page/Wrapper.svelte';
     import Title from '../lib/Page/Title.svelte';
     import Paragraph from '../lib/Page/Paragraph.svelte';
+
+    import { onMount } from 'svelte';
+    import getNewPageTitle from '../util/getNewPageTitle';
+
+    onMount(() => {
+        document.title = getNewPageTitle('Home');
+    });
 </script>
 
 <Wrapper>

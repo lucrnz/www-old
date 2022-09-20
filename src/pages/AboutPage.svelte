@@ -1,9 +1,16 @@
 <script>
+    import { onMount } from 'svelte';
     import Section from '../lib/Page/Section.svelte';
     import Paragraph from '../lib/Page/Paragraph.svelte';
     import Title from '../lib/Page/Title.svelte';
     import Wrapper from '../lib/Page/Wrapper.svelte';
     import ToggeableSection from '../lib/Page/ToggeableSection.svelte';
+
+    import getNewPageTitle from '../util/getNewPageTitle';
+
+    onMount(() => {
+        document.title = getNewPageTitle('About');
+    });
 </script>
 
 <Wrapper>

@@ -1,6 +1,6 @@
 export type BlogArticleDiv = {
     type: string;
-    values: string[];
+    params: { [key: string]: string };
 };
 
 export type BlogArticle = {
@@ -8,4 +8,6 @@ export type BlogArticle = {
     title: string;
     contents: BlogArticleDiv[];
     creationDate: Date;
+    readTimeMinutes: number;
+    description: string;
 };

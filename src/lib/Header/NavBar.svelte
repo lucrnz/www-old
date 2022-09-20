@@ -10,7 +10,13 @@
         <li>
             <a
                 class={`nav-button${
-                    option.path === $location.pathname ? ' nav-button-selected' : ''
+                    option.path === '/'
+                        ? $location.pathname === option.path
+                            ? ' nav-button-selected'
+                            : ''
+                        : $location.pathname.startsWith(option.path)
+                        ? ' nav-button-selected'
+                        : ''
                 }`}
                 href={option.path}
                 use:link>{option.title}</a

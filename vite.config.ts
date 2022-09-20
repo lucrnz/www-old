@@ -12,6 +12,11 @@ export default defineConfig(({ command, mode }) => {
             port: 3000,
             proxy: isDevMode
                 ? {
+                      '/image': {
+                          target: 'http://localhost:8000/',
+                          changeOrigin: true,
+                          secure: false,
+                      },
                       '/api': {
                           target: 'http://localhost:8000/',
                           changeOrigin: true,
