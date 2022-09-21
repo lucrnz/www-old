@@ -13,10 +13,10 @@
 
 <style lang="scss">
     div {
-        height: 8rem;
-        width: 8rem;
+        height: 4rem;
+        width: 4rem;
         background-image: var(--image-url);
-        background-size: 7.5rem;
+        background-size: 3.5rem;
         background-repeat: no-repeat;
         background-position: center;
         background-color: #785d4a;

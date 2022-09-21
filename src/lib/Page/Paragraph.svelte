@@ -1,17 +1,13 @@
-<script lang="ts">
-    import mapToCssVariables from '../../util/mapToCssVariables';
-    import textConfig from '../../config/textConfig';
-    export let className: string;
-</script>
-
-<p style={mapToCssVariables({ ...textConfig })} class={className}>
+<p>
     <slot />
 </p>
 
-<style>
+<style lang="scss">
+    @use '../../variables.scss' as v;
+
     p {
+        @include v.text-config;
         font-weight: 300;
-        line-height: var(--lineHeight);
-        letter-spacing: var(--letterSpacing);
+        word-wrap: break-word;
     }
 </style>

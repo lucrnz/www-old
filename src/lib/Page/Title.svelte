@@ -1,14 +1,10 @@
-<script lang="ts">
-    import mapToCssVariables from '../../util/mapToCssVariables';
-    import textConfig from '../../config/textConfig';
-</script>
+<h2><slot /></h2>
 
-<h2 style={mapToCssVariables({ ...textConfig })}><slot /></h2>
+<style lang="scss">
+    @use '../../variables.scss' as v;
 
-<style>
     h2 {
-        margin-top: 2rem;
-        line-height: var(--lineHeight);
-        letter-spacing: var(--letterSpacing);
+        @include v.text-config;
+        margin: 1rem 0 1rem 0;
     }
 </style>

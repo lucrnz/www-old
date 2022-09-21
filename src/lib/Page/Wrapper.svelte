@@ -1,19 +1,20 @@
-<script>
+<script lang="ts">
     import Footer from '../Footer.svelte';
     import { inAnimation, inConfig } from '../../config/animationConfig.js';
 </script>
 
 <article in:inAnimation={inConfig}>
     <slot />
-    <Footer copyrightYear="2022" authorName="Lucien Cupcakes" />
+    <Footer />
 </article>
 
-<style>
+<style lang="scss">
+    @use '../../variables.scss' as v;
+
     article {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin: 1rem;
-        width: 65vw;
+        @include v.mx-auto;
+        @include v.page-wrapper;
+        padding-top: 2rem;
+        max-width: 100vh;
     }
 </style>

@@ -10,7 +10,7 @@
 </script>
 
 <Router primary={false}>
-    <main id="app">
+    <main>
         <Header
             title={pageTitle}
             routes={{
@@ -29,10 +29,10 @@
 </Router>
 
 <style lang="scss">
+    @use './variables.scss' as v;
+
     main {
-        display: flex;
-        flex-direction: column;
-        justify-items: center;
-        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

@@ -1,39 +1,38 @@
 <script lang="ts">
     import type { BlogArticle } from '../../types/BlogArticle';
     import { link } from 'svelte-navigator';
-    import textConfig from '../../config/textConfig';
     import mapToCssVariables from '../../util/mapToCssVariables';
     import Title from '../../lib/Page/Title.svelte';
 
     export let article: BlogArticle;
 
     const articleUrl = `/blog/article/${article.id}`;
-    const textConfigCss = mapToCssVariables(textConfig);
 </script>
 
 <div class="article-card">
-    <div class="title" style={textConfigCss}>
+    <div class="title">
         <a href={articleUrl} use:link><Title>{article.title}</Title></a>
     </div>
-    <div class="create-date" style={textConfigCss}>
+    <div class="create-date">
         Created at {article.creationDate.toString()}
     </div>
-    <div class="time-read" style={textConfigCss}>
+    <div class="time-read">
         {article.readTimeMinutes} minutes read.
     </div>
-    <div class="description" style={textConfigCss}>
+    <div class="description">
         {article.description}
     </div>
 </div>
 
 <style lang="scss">
+    @use '../../variables.scss' as v;
+
     .article-card {
         .create-date,
         .time-read,
         .description {
+            @include v.text-config;
             font-weight: 300;
-            letter-spacing: var(--letterSpacing);
-            line-height: var(--lineHeight);
         }
     }
 </style>

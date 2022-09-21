@@ -2,11 +2,8 @@
     <slot />
 </section>
 
-<style>
+<style lang="scss">
     section {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
     }

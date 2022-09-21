@@ -22,28 +22,22 @@
     @use '../../variables' as v;
 
     header {
-        @include v.flex-center;
+        @include v.page-wrapper;
         background-color: scale-color(v.$black, $lightness: +5%);
-        width: 100vw;
-        height: 15rem;
+        height: 12rem;
     }
 
     .container {
-        @include v.flex-center;
-        flex-direction: row;
-        width: 65vw;
-        gap: 1.5rem;
+        @include v.mx-auto;
     }
 
     .title-nav {
-        @include v.flex-center;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-top: 1.2rem;
     }
 
     h1 {
-        font-size: 3rem;
+        margin: 0.5rem;
+        font-size: 2rem;
+        // font-size: 3rem; desktop
         font-weight: 700;
         letter-spacing: 0.2rem;
         color: v.$green;

@@ -6,7 +6,7 @@
 </script>
 
 <ul>
-    {#each options as option}
+    {#each options as option, i}
         <li>
             <a
                 class={`nav-button${
@@ -17,7 +17,7 @@
                         : $location.pathname.startsWith(option.path)
                         ? ' nav-button-selected'
                         : ''
-                }`}
+                }${i === 0 ? ' nav-button-first' : ''}`}
                 href={option.path}
                 use:link>{option.title}</a
             >
@@ -29,26 +29,23 @@
     @use '../../variables.scss' as v;
 
     ul {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        margin: 0;
+        margin-top: 2rem;
         padding: 0.5rem;
     }
 
-    ul > li {
-        margin: 0;
-        display: inline-flex;
+    li {
+        display: inline;
     }
 
     .nav-button {
-        font-size: 1.75rem;
+        // font-size: 1.75rem; desktop
+        font-size: 1.25rem;
         color: v.$white;
         border: 0.1rem solid v.$primary;
         border-radius: 3rem;
-        padding: 0.5rem 1rem 0.5rem 1rem;
+        // padding: 0.5rem 1rem 0.5rem 1rem; //desktop
+        padding: 0.6rem;
+        margin-left: 0.4rem;
 
         &:hover {
             background-color: #785d4a;
@@ -58,6 +55,10 @@
         &:active {
             background-color: #785d4a83;
         }
+    }
+
+    .nav-button-first {
+        margin-left: 0;
     }
 
     .nav-button-selected {

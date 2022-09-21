@@ -1,15 +1,20 @@
-// $black: #282525;
 $black: #232323;
 $white: #fefefb;
 $primary: #ff9737;
 $gray: #4d4841;
 $green: #49ebb1;
 
-@mixin flex-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-    justify-content: center;
+@mixin text-config {
+    letter-spacing: 0.02rem;
+    line-height: 2rem;
+}
+
+@mixin mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin page-wrapper {
+    padding: 1rem;
+    width: 100vw;
 }

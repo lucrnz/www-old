@@ -58,14 +58,14 @@
 {#if $notFoundPage}
     <NotFoundPage />
 {:else}
-    <Status isLoading={$isLoading} error={$errorMessage} retry={loadArticle}>
-        {#if Object.keys($article).length > 0}
-            <Wrapper>
+    <Wrapper>
+        <Status isLoading={$isLoading} error={$errorMessage} retry={loadArticle}>
+            {#if Object.keys($article).length > 0}
                 <Title>{$article.title}</Title>
                 {#each $article.contents as articleDiv}
                     <ArticleDiv contents={articleDiv} />
                 {/each}
-            </Wrapper>
-        {/if}
-    </Status>
+            {/if}
+        </Status>
+    </Wrapper>
 {/if}

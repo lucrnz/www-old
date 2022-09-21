@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     import { inAnimation, inConfig } from '../../config/animationConfig.js';
     import ArrowIcon from '../ArrowIcon.svelte';
-    export let intent = 'display contents';
-    export let title = '';
+    export let intent: string = 'display contents';
+    export let title: string = '';
     let show = false;
 </script>
 
@@ -21,20 +21,17 @@
     </section>
 {/if}
 
-<style>
+<style lang="scss">
     header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem;
         cursor: pointer;
         margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
     section {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
     }

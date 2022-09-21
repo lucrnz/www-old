@@ -20,6 +20,6 @@
 
 <style lang="scss">
     img {
-        width: 50rem;
+        max-width: 100%;
     }
 </style>

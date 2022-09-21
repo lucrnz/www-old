@@ -12,7 +12,8 @@
         "prepare": "husky install",
         "check-updates": "pnpm dlx npm-check-updates",
         "apply-updates": "pnpm dlx npm-check-updates -u && pnpm install",
-        "start:server": "pnpm exec nodemon srv/server.ts"
+        "start:server": "pnpm exec nodemon srv/server.ts",
+        "forward:ngrok": "ngrok http 3000"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^1.0.7",

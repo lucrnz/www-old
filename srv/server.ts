@@ -29,11 +29,12 @@ const blogArticles: BlogArticle[] = [
         title: 'Hello World - Why I created my website after 10 years',
         contents: [
             ...text(
-                `First of all: I'm not a native english speaker and I am horrible at writting, Sorry about that!.\n` +
-                    `Finally! After reading a lot of blogs I can start mine. Also it's been a while since I have a website...\n` +
+                `First of all: I'm not a native english speaker and I'm horrible at writing, sorry about that!.\n` +
+                    `Finally, after reading a lot of blogs I can start mine. It's been a while since I have a website...\n` +
                     `If I don't count the last one where I bought a cheap xyz domain and totally forgot about it.. it's probably around 10 years.\n` +
                     `I enjoy lurking, it's how I am, creating content was not something that I really had in mind at that moment.\n` +
-                    `Blogs are probably the most overused type for a personal site, but who cares? Writing about random stuff sounds really fun.`
+                    `Blogs are probably the most overused type for a personal site, but who cares?\n` +
+                    `Writing about random stuff sounds really fun!`
             ),
             image('b35dace6-5087-43d7-8b00-0de64226b04c', 'Cup filled with coffee near book'),
         ],
