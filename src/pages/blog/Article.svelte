@@ -3,13 +3,12 @@
     import { writable } from 'svelte/store';
     import type { Writable } from 'svelte/store';
     import isValidUUID from '../../util/isValidUUID';
-    import ArticleDiv from './ArticleDiv.svelte';
     import Wrapper from '../../lib/Page/Wrapper.svelte';
     import Title from '../../lib/Page/Title.svelte';
     import Status from '../../lib/Status.svelte';
     import NotFoundPage from '../NotFoundPage.svelte';
-    import Paragraph from '../../lib/Page/Paragraph.svelte';
     import getNewPageTitle from '../../util/getNewPageTitle';
+    import RenderableContent from '../../lib/RenderableContent/RenderableContent.svelte';
 
     export let id = '';
 
@@ -63,7 +62,7 @@
             {#if Object.keys($article).length > 0}
                 <Title>{$article.title}</Title>
                 {#each $article.contents as articleDiv}
-                    <ArticleDiv contents={articleDiv} />
+                    <RenderableContent contents={articleDiv} />
                 {/each}
             {/if}
         </Status>

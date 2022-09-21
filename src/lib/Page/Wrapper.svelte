@@ -15,7 +15,6 @@
         @include v.mx-auto;
         @include v.page-size;
         width: 90vw;
-        // padding: 1rem; // creates a problem with the body box size, find another way to add the margin.
         padding: 1rem 0 1rem 0;
     }
 </style>

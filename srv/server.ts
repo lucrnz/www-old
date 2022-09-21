@@ -2,33 +2,47 @@
 /*  --------------------------------------------------------*/
 /* blog.ts */
 /*  --------------------------------------------------------*/
-import type { BlogArticle, BlogArticleDiv } from '../src/types/BlogArticle';
+import type { BlogArticle } from '../src/types/BlogArticle';
+import type { RenderableContent } from '../src/types/RenderableContent';
 
 // @TODO : Fix import bug, for now copy and paste 🤦
-export enum blogArticleDivType {
+enum RenderableContentType {
+    Paragraph,
+    Section,
+    ToggeableSection,
     Text,
     Link,
     Image,
 }
 
-const paragraph = (value: string): BlogArticleDiv => ({
-    type: blogArticleDivType.Text.toString(),
+const paragraph = (value: RenderableContent[]): RenderableContent => ({
+    type: RenderableContentType.Paragraph,
     params: { value },
 });
 
-const text = (text: string): BlogArticleDiv[] => text.split('\n').map((value) => paragraph(value));
+const textNode = (value: string): RenderableContent => ({
+    type: RenderableContentType.Text,
+    params: { value },
+});
 
-const image = (id: string, alt: string): BlogArticleDiv => ({
-    type: blogArticleDivType.Image.toString(),
+const image = (id: string, alt: string): RenderableContent => ({
+    type: RenderableContentType.Image,
     params: { id, alt },
 });
+
+const text = (text: string | string[]): RenderableContent => {
+    const lines: string[] = Array.isArray(text) ? text : text.split('\n');
+    const textNodes: RenderableContent[] = lines.map((value) => textNode(value));
+
+    return paragraph(textNodes);
+};
 
 const blogArticles: BlogArticle[] = [
     {
         id: 'ab5a7b1e-c549-4e31-9587-ecf5bbd6cc3e',
         title: 'Hello World - Why I created my website after 10 years',
         contents: [
-            ...text(
+            text(
                 `First of all: I'm not a native english speaker and I'm horrible at writing, sorry about that!.\n` +
                     `Finally, after reading a lot of blogs I can start mine. It's been a while since I have a website...\n` +
                     `If I don't count the last one where I bought a cheap xyz domain and totally forgot about it.. it's probably around 10 years.\n` +
@@ -46,9 +60,13 @@ const blogArticles: BlogArticle[] = [
         id: '85ea9e0d-d3f7-4b51-b476-50f38c7b22fb',
         title: 'Second Post!',
         contents: [
+            text('There we go'),
             {
-                type: blogArticleDivType.Text.toString(),
-                params: { value: 'This is a second post' },
+                type: RenderableContentType.ToggeableSection,
+                params: {
+                    title: 'Open me!',
+                    value: [text(['Hello world!', 'Thank you for reading me'])],
+                },
             },
         ],
         creationDate: new Date(1663592814762),

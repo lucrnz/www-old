@@ -1,6 +1,7 @@
 <script lang="ts">
     export let error: string = '';
     export let isLoading: boolean = false;
+
     export let retry: (
         event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }
     ) => void;
