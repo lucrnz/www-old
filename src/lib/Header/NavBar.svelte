@@ -5,31 +5,33 @@
     const location = useLocation();
 </script>
 
-<ul>
-    {#each options as option, i}
-        <li>
-            <a
-                class={`nav-button${
-                    option.path === '/'
-                        ? $location.pathname === option.path
-                            ? ' nav-button-selected'
+<nav>
+    <ol>
+        {#each options as option, i}
+            <li>
+                <a
+                    class={`nav-btn${
+                        option.path === '/'
+                            ? $location.pathname === option.path
+                                ? ' nav-btn-sel'
+                                : ''
+                            : $location.pathname.startsWith(option.path)
+                            ? ' nav-btn-sel'
                             : ''
-                        : $location.pathname.startsWith(option.path)
-                        ? ' nav-button-selected'
-                        : ''
-                }${i === 0 ? ' nav-button-first' : ''}`}
-                href={option.path}
-                use:link>{option.title}</a
-            >
-        </li>
-    {/each}
-</ul>
+                    }${i === 0 ? ' nav-btn-first' : ''}`}
+                    href={option.path}
+                    use:link>{option.title}</a
+                >
+            </li>
+        {/each}
+    </ol>
+</nav>
 
 <style lang="scss">
     @use '../../variables.scss' as v;
 
-    ul {
-        margin-top: 2rem;
+    nav {
+        margin: 0.5rem 0 0.5rem 0;
         padding: 0.5rem;
     }
 
@@ -37,14 +39,14 @@
         display: inline;
     }
 
-    .nav-button {
+    .nav-btn {
         // font-size: 1.75rem; desktop
         font-size: 1.25rem;
         color: v.$white;
         border: 0.1rem solid v.$primary;
         border-radius: 3rem;
         // padding: 0.5rem 1rem 0.5rem 1rem; //desktop
-        padding: 0.6rem;
+        padding: 0.4rem;
         margin-left: 0.4rem;
 
         &:hover {
@@ -57,11 +59,11 @@
         }
     }
 
-    .nav-button-first {
+    .nav-btn-first {
         margin-left: 0;
     }
 
-    .nav-button-selected {
+    .nav-btn-sel {
         background-color: #785d4a83;
     }
 </style>

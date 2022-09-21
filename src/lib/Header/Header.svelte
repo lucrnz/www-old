@@ -11,10 +11,8 @@
 <header>
     <section class="container">
         <Logo />
-        <section class="title-nav">
-            <h1>{title}</h1>
-            <NavBar options={navBarOptions} />
-        </section>
+        <h1>{title}</h1>
+        <NavBar options={navBarOptions} />
     </section>
 </header>
 
@@ -22,20 +20,21 @@
     @use '../../variables' as v;
 
     header {
-        @include v.page-wrapper;
+        @include v.page-size;
+        padding: 1rem 0 1rem 0;
         background-color: scale-color(v.$black, $lightness: +5%);
         height: 12rem;
     }
 
     .container {
-        @include v.mx-auto;
-    }
-
-    .title-nav {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
     }
 
     h1 {
-        margin: 0.5rem;
+        margin: 1rem 0 1rem 0;
         font-size: 2rem;
         // font-size: 3rem; desktop
         font-weight: 700;

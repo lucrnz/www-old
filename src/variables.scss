@@ -14,7 +14,6 @@ $green: #49ebb1;
     margin-right: auto;
 }
 
-@mixin page-wrapper {
-    padding: 1rem;
+@mixin page-size {
     width: 100vw;
 }

@@ -1,11 +1,12 @@
 <script lang="ts">
     import mapToCssVariables from '../../util/mapToCssVariables';
     import imageUrl from '../../assets/pepe.svg';
+    const altText = 'Pepe the frog';
 </script>
 
 <div
-    alt="Pepe the frog"
-    aria-label="Pepe the frog"
+    alt={altText}
+    aria-label={altText}
     style={mapToCssVariables({
         ['image-url']: `url(${imageUrl})`,
     })}
