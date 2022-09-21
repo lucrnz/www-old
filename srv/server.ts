@@ -1,11 +1,13 @@
-// @TODO: FIX IMPORT SO I can have the blog on another file!!!!!!!
+// @TODO:   FIX IMPORT SO I can have the blog on another file!!!!!!!
+// @TODO:   Node + TypeScript is really weird as a backend ???
+//          .NET Core C# M̶i̶c̶r̶o̶s̶o̶f̶t̶ ̶D̶a̶d̶d̶y̶ ?? Go ? Rust? Deno?? P̶y̶t̶h̶o̶n̶ ̶+̶ ̶F̶l̶a̶s̶k̶
 /*  --------------------------------------------------------*/
 /* blog.ts */
 /*  --------------------------------------------------------*/
 import type { BlogArticle } from '../src/types/BlogArticle';
 import type { RenderableContent } from '../src/types/RenderableContent';
 
-// @TODO : Fix import bug, for now copy and paste 🤦
+/* copy and paste very funny right? :) 🤦 */
 enum RenderableContentType {
     Paragraph,
     Section,
@@ -13,10 +15,16 @@ enum RenderableContentType {
     Text,
     Link,
     Image,
+    Title,
 }
 
 const paragraph = (value: RenderableContent[]): RenderableContent => ({
     type: RenderableContentType.Paragraph,
+    params: { value },
+});
+
+const section = (value: RenderableContent[]): RenderableContent => ({
+    type: RenderableContentType.Section,
     params: { value },
 });
 
@@ -30,11 +38,16 @@ const image = (id: string, alt: string): RenderableContent => ({
     params: { id, alt },
 });
 
-const text = (text: string | string[]): RenderableContent => {
-    const lines: string[] = Array.isArray(text) ? text : text.split('\n');
-    const textNodes: RenderableContent[] = lines.map((value) => textNode(value));
+const title = (value: string): RenderableContent => ({
+    type: RenderableContentType.Title,
+    params: { value },
+});
 
-    return paragraph(textNodes);
+const textToParagraph = (text: string | string[]): RenderableContent[] => {
+    const lines: string[] = Array.isArray(text) ? text : text.split('\n');
+    const textNodes = lines.map((value) => textNode(value));
+
+    return textNodes.map((textNode) => paragraph([textNode]));
 };
 
 const blogArticles: BlogArticle[] = [
@@ -42,7 +55,7 @@ const blogArticles: BlogArticle[] = [
         id: 'ab5a7b1e-c549-4e31-9587-ecf5bbd6cc3e',
         title: 'Hello World - Why I created my website after 10 years',
         contents: [
-            text(
+            ...textToParagraph(
                 `First of all: I'm not a native english speaker and I'm horrible at writing, sorry about that!.\n` +
                     `Finally, after reading a lot of blogs I can start mine. It's been a while since I have a website...\n` +
                     `If I don't count the last one where I bought a cheap xyz domain and totally forgot about it.. it's probably around 10 years.\n` +
@@ -60,14 +73,24 @@ const blogArticles: BlogArticle[] = [
         id: '85ea9e0d-d3f7-4b51-b476-50f38c7b22fb',
         title: 'Second Post!',
         contents: [
-            text('There we go'),
-            {
-                type: RenderableContentType.ToggeableSection,
-                params: {
-                    title: 'Open me!',
-                    value: [text(['Hello world!', 'Thank you for reading me'])],
+            section([
+                title('First section.'),
+                ...textToParagraph(['There we go', 'More text!']),
+                {
+                    type: RenderableContentType.ToggeableSection,
+                    params: {
+                        title: 'Open me!',
+                        value: [textNode('This is the folded content.')],
+                    },
                 },
-            },
+            ]),
+            section([
+                title('Second section.'),
+                ...textToParagraph([
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'Nunc ante odio, molestie nec suscipit in, tristique vitae enim.',
+                ]),
+            ]),
         ],
         creationDate: new Date(1663592814762),
         readTimeMinutes: 1,
