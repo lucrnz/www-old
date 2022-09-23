@@ -56,7 +56,6 @@
     <Wrapper>
         <Status isLoading={$isLoading} haveError={$haveError} retry={loadPage}>
             {#if Object.keys($pageContent).length > 0}
-                <Title>{$pageContent.title}</Title>
                 {#each $pageContent.contents as renderableContent}
                     <RenderableContent contents={renderableContent} />
                 {/each}
