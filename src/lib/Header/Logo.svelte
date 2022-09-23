@@ -8,7 +8,7 @@
     alt={altText}
     aria-label={altText}
     style={mapToCssVariables({
-        ['url']: `url(${imageUrl})`,
+        url: `url(${imageUrl})`,
     })}
 />
 
@@ -27,8 +27,10 @@
         background-size: 3.5rem;
         padding: 0.5rem;
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
+            margin-right: 1rem;
             display: inline-block;
+            vertical-align: middle;
             height: 3.4rem;
             width: 3.4rem;
             padding: 0.3rem;

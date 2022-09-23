@@ -33,6 +33,12 @@
     nav {
         margin: 0.5rem 0 0.5rem 0;
         padding: 0.5rem;
+
+        @media (min-width: 1024px) {
+            float: right;
+            display: inline-block;
+            vertical-align: middle;
+        }
     }
 
     li {
@@ -55,7 +61,7 @@
             padding: 0.5rem;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
             margin-left: 0.5rem;
             padding: 0.5rem 1rem 0.5rem 1rem;
             font-size: 1.25rem;

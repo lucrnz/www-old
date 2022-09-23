@@ -9,11 +9,11 @@
 </script>
 
 <header>
-    <section class="container">
-        <Logo />
+    <div class="container">
+        <Logo display="inline-block" />
         <h1>{title}</h1>
         <NavBar options={navBarOptions} />
-    </section>
+    </div>
 </header>
 
 <style lang="scss">
@@ -25,7 +25,9 @@
         background-color: scale-color(v.$black, $lightness: +5%);
         height: 12rem;
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
+            position: sticky;
+            top: 0;
             height: 4rem;
             padding: 0.5rem 0 0.5rem 0;
         }
@@ -40,7 +42,7 @@
         align-items: center;
         align-content: center;
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
             display: block;
             flex-direction: unset;
             align-items: unset;
@@ -49,15 +51,17 @@
     }
 
     h1 {
+        display: inline-block;
+        vertical-align: middle;
         color: v.$green;
         margin: 0.7rem 0 0.7rem 0;
         font-weight: 700;
         letter-spacing: 0.2rem;
         font-size: 2rem;
 
-        @media (min-width: 768px) {
-            margin: 1rem 0 1rem 0;
-            font-size: 2.5rem;
+        @media (min-width: 1024px) {
+            margin: 0 0.5rem 0 0;
+            font-size: 2.2rem;
         }
     }
 </style>
