@@ -34,7 +34,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 0.5rem;
+    @include v.border-radius-small;
     background: v.$gray;
     &:hover {
         background: scale-color(v.$gray, $lightness: +15%);
@@ -86,17 +86,18 @@ input {
 }
 
 a {
+    cursor: pointer;
     color: v.$primary;
     text-decoration: none;
-}
 
-a:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 button {
+    @include v.border-radius-strong;
     border: solid 0.1rem v.$primary;
-    border-radius: 3rem;
     padding: 0.5rem 1rem 0.5rem 1rem;
     color: v.$white;
     cursor: pointer;

@@ -40,14 +40,26 @@
     }
 
     .nav-btn {
-        // font-size: 1.75rem; desktop
-        font-size: 1.25rem;
+        @include v.border-radius-strong;
+        @include v.nav-bar-font-size;
+
         color: v.$white;
         border: 0.1rem solid v.$primary;
-        border-radius: 3rem;
-        // padding: 0.5rem 1rem 0.5rem 1rem; //desktop
+
+        margin-left: 0.3rem;
+        font-size: 1rem;
         padding: 0.4rem;
-        margin-left: 0.4rem;
+
+        @media (min-width: 375px) {
+            margin-left: 0.4rem;
+            padding: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            margin-left: 0.5rem;
+            padding: 0.5rem 1rem 0.5rem 1rem;
+            font-size: 1.25rem;
+        }
 
         &:hover {
             background-color: #785d4a;

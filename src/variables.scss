@@ -15,5 +15,45 @@ $green: #49ebb1;
 }
 
 @mixin page-size {
-    width: 100vw;
+    width: 90vw;
+
+    @media (min-width: 768px) {
+        width: 65vw;
+    }
+
+    @media (min-width: 1024px) {
+        width: 50vw;
+    }
+}
+
+@mixin header-size {
+    width: 90vw;
+
+    @media (min-width: 768px) {
+        width: 80vw;
+    }
+
+    @media (min-width: 1024px) {
+        width: 90vw;
+    }
+}
+
+@mixin nav-bar-font-size {
+    font-size: 1rem;
+
+    @media (min-width: 768px) {
+        font-size: 1.25rem;
+    }
+}
+
+@mixin border-radius-small {
+    border-radius: 0.5rem;
+}
+
+@mixin border-radius-strong {
+    border-radius: 3rem;
+}
+
+@mixin border-radius-strongest {
+    border-radius: 5rem;
 }

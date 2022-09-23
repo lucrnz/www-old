@@ -10,7 +10,7 @@
 
     const articles = writable([]);
     const isLoading = writable(true);
-    const errorMessage = writable('');
+    const haveError = writable(false);
 
     const loadArticles = () =>
         fetch('/api/blog-articles')
@@ -20,21 +20,22 @@
                     .then((apiResult) => {
                         const { response: articlesList } = apiResult;
                         articles.set(articlesList);
+                        haveError.set(false);
                     })
                     .catch((err) => {
                         console.error(err);
-                        errorMessage.set(`API error: cannot parse JSON.`);
+                        haveError.set(true);
                     });
             })
             .catch((err) => {
                 console.error('API error', err);
-                errorMessage.set(`API error.`);
+                haveError.set(true);
             })
             .finally(() => {
                 isLoading.set(false);
             });
 
-    if ($isLoading && $errorMessage.length === 0 && $articles.length === 0) {
+    if ($isLoading && !$haveError && $articles.length === 0) {
         loadArticles();
     }
 
@@ -44,9 +45,9 @@
 </script>
 
 <Wrapper>
-    <Title>Articles</Title>
-    <Paragraph>Welcome to my blog! These are the latests posts:</Paragraph>
-    <Status isLoading={$isLoading} error={$errorMessage} retry={loadArticles}>
+    <Title>Blog</Title>
+    <Paragraph>Welcome to my blog! Here is where I write about multiple topics 🙂</Paragraph>
+    <Status isLoading={$isLoading} haveError={$haveError} retry={loadArticles}>
         {#if $articles.length > 0}
             {#each $articles as article}
                 <ArticleListItem article={article} />

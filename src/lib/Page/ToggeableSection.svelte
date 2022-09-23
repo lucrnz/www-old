@@ -22,9 +22,13 @@
 {/if}
 
 <style lang="scss">
+    h2 {
+        margin: 0 0 1rem 0;
+    }
+
     header {
         cursor: pointer;
-        margin-top: 2rem;
+        margin: 2rem 0 0 0;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -32,7 +36,6 @@
     }
 
     section {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        margin: 0 0 2rem 0;
     }
 </style>

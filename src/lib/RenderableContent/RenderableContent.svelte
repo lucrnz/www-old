@@ -6,6 +6,7 @@
     import { getParamAsString, getParamAsRenderableContentArray } from './paramHelper';
     import ToggeableSection from '../Page/ToggeableSection.svelte';
     import Title from '../Page/Title.svelte';
+    import Image from '../Image.svelte';
 
     export let contents: RenderableContent;
     const param = (paramName: string): string => getParamAsString(paramName, contents.params);
@@ -39,12 +40,6 @@
     {:else if contents.type === RenderableContentType.Link}
         <a href={param('href')}>{param('value')}</a>
     {:else if contents.type === RenderableContentType.Image}
-        <img src={`/image/` + param('id')} alt={param('alt')} />
+        <Image id={param('id')} alt={param('alt')} />
     {/if}
 {/if}
-
-<style lang="scss">
-    img {
-        max-width: 100%;
-    }
-</style>

@@ -6,6 +6,7 @@
 /*  --------------------------------------------------------*/
 import type { BlogArticle } from '../src/types/BlogArticle';
 import type { RenderableContent } from '../src/types/RenderableContent';
+import type { ContentPage } from '../src/types/ContentPage';
 
 /* copy and paste very funny right? :) 🤦 */
 enum RenderableContentType {
@@ -26,6 +27,11 @@ const paragraph = (value: RenderableContent[]): RenderableContent => ({
 const section = (value: RenderableContent[]): RenderableContent => ({
     type: RenderableContentType.Section,
     params: { value },
+});
+
+const toggeableSection = (title: string, value: RenderableContent[]): RenderableContent => ({
+    type: RenderableContentType.ToggeableSection,
+    params: { title, value },
 });
 
 const textNode = (value: string): RenderableContent => ({
@@ -97,15 +103,82 @@ const blogArticles: BlogArticle[] = [
         description: 'This is my second post',
     },
 ];
+/*  --------------------------------------------------------*/
+/* pages.ts */
+/*  --------------------------------------------------------*/
+
+const contentPages: ContentPage[] = [
+    {
+        id: '67c1f6f4-3bb6-4d0a-a98b-76984060b8f0',
+        title: 'About',
+        contents: [
+            section([
+                title('About Me'),
+                ...textToParagraph([
+                    `My Name is Lucien, I am 27 years old. I go by they/them pronouns.`,
+                    `I am a developer from Argentina.`,
+                ]),
+            ]),
+            section([
+                title('Hobbies: Programming'),
+                ...textToParagraph([
+                    `I learned programming by myself, I find it enjoyable to create programs or scripts that` +
+                        `solves problems.`,
+                    `I work as a fullstack software developer at a known international company, but I enjoy` +
+                        `a lot more front-end.`,
+                    `My tech skills include but are not limited to: JavaScript, C#, Go and a little bit of C.` +
+                        `Even tho I dont wanna touch C ever again.`,
+                    `Originally I created this website to practice my front-end development skills.`,
+                ]),
+            ]),
+            section([
+                title('Hobbies: General'),
+                ...textToParagraph([
+                    `Apart from programming I enjoy gaming (both PC and VR), going out for a walk, working
+                    out,`,
+                    `watching cartoons or tv shows, and generally enjoying my time with my partner.`,
+                ]),
+            ]),
+            toggeableSection(
+                'Life views',
+                textToParagraph([
+                    `I have my own definition of nihilism, I try to re-think how I interact with everything` +
+                        `and find my own conclusions about them.`,
+                    `While I try to remain positive as I found out that being too realistic or negative is` +
+                        `depressive.`,
+                    `I identify as gender non-binary, as I dont associate with either cultural masculiny or`,
+                    `femininity, I enjoy creating my own meaning of gender expression. I fully support LGBTQIA+.`,
+                    `I believe everyone should be treated the same regardless of gender, and that people` +
+                        `should show their own interests instead of what society tells them to do.`,
+                    `I believe killing animals for own pleasure or enjoyment is bad and should not be done.` +
+                        `I only feed myself with plant based food.`,
+                    `I don't believe in modern feminism as It seems to be hembrism or female-side sexism.`,
+                ])
+            ),
+        ],
+    },
+];
+
+/*  --------------------------------------------------------*/
+/* isValidUUID.ts */
+/*  --------------------------------------------------------*/
+
+const isValidUUID = (str: string) => {
+    // https://gist.github.com/johnelliott/cf77003f72f889abbc3f32785fa3df8d
+    const v4 = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
+    return Boolean(str.match(v4));
+};
 
 /*  --------------------------------------------------------*/
 /* server.ts */
 /*  --------------------------------------------------------*/
 import express from 'express';
 import dotenv from 'dotenv';
+import { fileTypeFromBuffer, fileTypeFromFile } from 'file-type';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
+import { readFile } from 'fs/promises';
 
 const baseDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const spaDir = join(baseDir, 'dist');
@@ -133,7 +206,37 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/image', express.static(imgDir));
+app.get('/image/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!isValidUUID(id)) {
+        return res.sendStatus(404);
+    }
+
+    const filePath = join(imgDir, id);
+
+    if (!existsSync(filePath)) {
+        return res.sendStatus(404);
+    }
+
+    const fileData = await readFile(filePath);
+    const fileInfo = await fileTypeFromBuffer(fileData);
+
+    res.writeHead(200, {
+        'Content-Type': fileInfo?.mime,
+        'Content-disposition': `attachment;filename=image-${id}.${fileInfo?.ext}`,
+        'Content-Length': fileData.length,
+    });
+    res.end(fileData);
+});
+
+app.get('/api/content-pages/:id', (req, res) => {
+    const id = req.params.id;
+    const response = contentPages.find((page) => page.id === id);
+    const found = response !== undefined;
+
+    res.status(found ? 200 : 404);
+    return res.json(found ? { found, response } : { found });
+});
 
 app.get('/api/blog-articles', (req, res) => {
     // Return articles sorted desc. (Latest first.)
@@ -146,18 +249,17 @@ app.get('/api/blog-articles', (req, res) => {
             description: article.description,
         }))
         .sort((a, b) => Number(b.creationDate) - Number(a.creationDate));
-    return res.json({ response });
+    const found = response !== undefined;
+    res.status(found ? 200 : 404);
+    return res.json(found ? { found, response } : { found });
 });
 
 app.get('/api/blog-articles/:id', (req, res) => {
     const id = req.params.id;
     const response = blogArticles.find((article) => article.id === id);
-
-    if (response === undefined) {
-        res.status(404);
-    }
-
-    return res.json({ response });
+    const found = response !== undefined;
+    res.status(found ? 200 : 404);
+    return res.json(found ? { found, response } : { found });
 });
 
 app.use('/', express.static(spaDir));
