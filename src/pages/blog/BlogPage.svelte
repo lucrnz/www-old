@@ -6,7 +6,7 @@
 </script>
 
 <Router primary={false}>
-    <Route path="article/:id" let:params>
+    <Route path="/:id" let:params>
         <Article id={params.id} />
     </Route>
     <Route path="/">

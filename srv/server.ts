@@ -19,19 +19,22 @@ enum RenderableContentType {
     Title,
 }
 
-const paragraph = (value: RenderableContent[]): RenderableContent => ({
+const paragraphNode = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
     type: RenderableContentType.Paragraph,
-    params: { value },
+    params: { value: Array.isArray(value) ? value : [value] },
 });
 
-const section = (value: RenderableContent[]): RenderableContent => ({
+const sectionNode = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
     type: RenderableContentType.Section,
-    params: { value },
+    params: { value: Array.isArray(value) ? value : [value] },
 });
 
-const toggeableSection = (title: string, value: RenderableContent[]): RenderableContent => ({
+const toggeableSectionNode = (
+    title: string,
+    value: RenderableContent[] | RenderableContent
+): RenderableContent => ({
     type: RenderableContentType.ToggeableSection,
-    params: { title, value },
+    params: { title, value: Array.isArray(value) ? value : [value] },
 });
 
 const textNode = (value: string): RenderableContent => ({
@@ -39,68 +42,60 @@ const textNode = (value: string): RenderableContent => ({
     params: { value },
 });
 
-const image = (id: string, alt: string): RenderableContent => ({
-    type: RenderableContentType.Image,
-    params: { id, alt },
+const linkNode = (url: string, alt: string, value: string): RenderableContent => ({
+    type: RenderableContentType.Link,
+    params: { url, alt, value },
 });
 
-const title = (value: string): RenderableContent => ({
+const imageNode = (id: number, alt: string): RenderableContent => ({
+    type: RenderableContentType.Image,
+    params: { id: id.toString(), alt },
+});
+
+const titleNode = (value: string): RenderableContent => ({
     type: RenderableContentType.Title,
     params: { value },
 });
 
-const textToParagraph = (text: string | string[]): RenderableContent[] => {
-    const lines: string[] = Array.isArray(text) ? text : text.split('\n');
-    const textNodes = lines.map((value) => textNode(value));
-
-    return textNodes.map((textNode) => paragraph([textNode]));
-};
-
 const blogArticles: BlogArticle[] = [
     {
-        id: 'ab5a7b1e-c549-4e31-9587-ecf5bbd6cc3e',
+        id: '20220919-hello-world',
         title: 'Hello World - Why I created my website after 10 years',
         contents: [
-            ...textToParagraph(
-                `First of all: I'm not a native english speaker and I'm horrible at writing, sorry about that!.\n` +
-                    `Finally, after reading a lot of blogs I can start mine. It's been a while since I have a website...\n` +
-                    `If I don't count the last one where I bought a cheap xyz domain and totally forgot about it.. it's probably around 10 years.\n` +
-                    `I enjoy lurking, it's how I am, creating content was not something that I really had in mind at that moment.\n` +
-                    `Blogs are probably the most overused type for a personal site, but who cares?\n` +
-                    `Writing about random stuff sounds really fun!`
+            compose(
+                [
+                    `Finally, after coding for hours non-stop, and reading a lot of blogs while wishing to have my own,I can start mine. ` +
+                        `It's been a while since I have a website... probably around 10 years.`,
+                    `I enjoy lurking, it's how I am, creating content was not something that I really had in mind at that moment.`,
+                    `Blogs are probably an overused type for a personal site, but who cares?`,
+                    `Writing about random stuff sounds really fun!`,
+                    image(0, 'Cup filled with coffee near book'),
+                ],
+                'Hello World - Why I created my website after 10 years'
             ),
-            image('b35dace6-5087-43d7-8b00-0de64226b04c', 'Cup filled with coffee near book'),
+            compose(
+                [
+                    `I started coding this site around 10 days ago, I must admit I over-engineered it in a way, because I really wanted a SPA, ` +
+                        `there are a lot of tools to easily get a blog running, but I just didn't wanted to take the easy path.`,
+                    `My own hand-crafted site, my original idea was to even create a JS framework, but I ditched it inmediately after ` +
+                        `realizing it wasn't that easy: State management, know when to re-render components. I wanted all. Of course, I gave up. ` +
+                        `I did it because it was already done: either <%%link alt="Go to Svelte site" url="https://svelte.dev/" value="Svelte" %%> or ` +
+                        `<%%link alt="Go to Million js site" url="https://millionjs.org/" value="Million" %%> were exactly what I thought.`,
+                ],
+                'Programming'
+            ),
+            compose([
+                `React is a really popular library, and It was my first components experience, it changed my way of thinking about UI completely, ` +
+                    `but It has a big problem: over-head and bundle size.`,
+                `For a while I was absent from web development and refused to use Node or Npm while just using Vanilla JavaScript ` +
+                    `for interaction code, having bad experiences with big libraries like JQuery and poor architecture.`,
+                `Right now, I got alternatives, pnpm as a package manager that doesn't create giant ` +
+                    `node_modules folders, Svelte, <%%link alt="Go to Preact site" url="https://preactjs.com/" value="Preact" %%> or Million as lightweight frameworks, Vite instead of the tedious and slow webpack.`,
+            ]),
         ],
         creationDate: new Date(1663556808991),
         readTimeMinutes: 2,
         description: 'This is my first post',
-    },
-    {
-        id: '85ea9e0d-d3f7-4b51-b476-50f38c7b22fb',
-        title: 'Second Post!',
-        contents: [
-            section([
-                title('First section.'),
-                ...textToParagraph(['There we go', 'More text!']),
-                {
-                    type: RenderableContentType.ToggeableSection,
-                    params: {
-                        title: 'Open me!',
-                        value: [textNode('This is the folded content.')],
-                    },
-                },
-            ]),
-            section([
-                title('Second section.'),
-                ...textToParagraph([
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'Nunc ante odio, molestie nec suscipit in, tristique vitae enim.',
-                ]),
-            ]),
-        ],
-        creationDate: new Date(1663592814762),
-        readTimeMinutes: 1,
-        description: 'This is my second post',
     },
 ];
 /*  --------------------------------------------------------*/
@@ -109,18 +104,18 @@ const blogArticles: BlogArticle[] = [
 
 const contentPages: ContentPage[] = [
     {
-        id: '67c1f6f4-3bb6-4d0a-a98b-76984060b8f0',
+        id: 'about-me',
+        title: 'About me',
         contents: [
-            section([
-                title('About Me'),
-                ...textToParagraph([
+            compose(
+                [
                     `My Name is Lucien, I am 27 years old. I go by they/them pronouns.`,
                     `I am a developer from Argentina.`,
-                ]),
-            ]),
-            section([
-                title('Hobbies: Programming'),
-                ...textToParagraph([
+                ],
+                'About me'
+            ),
+            compose(
+                [
                     `I learned programming by myself, I find it enjoyable to create programs or scripts that` +
                         `solves problems.`,
                     `I work as a fullstack software developer at a known international company, but I enjoy` +
@@ -128,19 +123,19 @@ const contentPages: ContentPage[] = [
                     `My tech skills include but are not limited to: JavaScript, C#, Go and a little bit of C.` +
                         `Even tho I dont wanna touch C ever again.`,
                     `Originally I created this website to practice my front-end development skills.`,
-                ]),
-            ]),
-            section([
-                title('Hobbies: General'),
-                ...textToParagraph([
+                ],
+                'Hobbies: Programming'
+            ),
+            compose(
+                [
                     `Apart from programming I enjoy gaming (both PC and VR), going out for a walk, working
                     out,`,
                     `watching cartoons or tv shows, and generally enjoying my time with my partner.`,
-                ]),
-            ]),
-            toggeableSection(
-                'Life views',
-                textToParagraph([
+                ],
+                'Hobbies: General'
+            ),
+            toggeableSection('Life views', [
+                compose([
                     `I have my own definition of nihilism, I try to re-think how I interact with everything` +
                         `and find my own conclusions about them.`,
                     `While I try to remain positive as I found out that being too realistic or negative is` +
@@ -152,32 +147,23 @@ const contentPages: ContentPage[] = [
                     `I believe killing animals for own pleasure or enjoyment is bad and should not be done.` +
                         `I only feed myself with plant based food.`,
                     `I don't believe in modern feminism as It seems to be hembrism or female-side sexism.`,
-                ])
-            ),
+                ]),
+            ]),
         ],
     },
 ];
-
-/*  --------------------------------------------------------*/
-/* isValidUUID.ts */
-/*  --------------------------------------------------------*/
-
-const isValidUUID = (str: string) => {
-    // https://gist.github.com/johnelliott/cf77003f72f889abbc3f32785fa3df8d
-    const v4 = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
-    return Boolean(str.match(v4));
-};
 
 /*  --------------------------------------------------------*/
 /* server.ts */
 /*  --------------------------------------------------------*/
 import express from 'express';
 import dotenv from 'dotenv';
-import { fileTypeFromBuffer, fileTypeFromFile } from 'file-type';
+import { fileTypeFromBuffer } from 'file-type';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
+import { StatusCodes } from 'http-status-codes';
 
 const baseDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const spaDir = join(baseDir, 'dist');
@@ -207,14 +193,15 @@ app.use((req, res, next) => {
 
 app.get('/image/:id', async (req, res) => {
     const id = req.params.id;
-    if (!isValidUUID(id)) {
-        return res.sendStatus(404);
+
+    if (isNaN(parseInt(id))) {
+        return res.sendStatus(StatusCodes.BAD_REQUEST);
     }
 
     const filePath = join(imgDir, id);
 
     if (!existsSync(filePath)) {
-        return res.sendStatus(404);
+        return res.sendStatus(StatusCodes.NOT_FOUND);
     }
 
     const fileData = await readFile(filePath);
@@ -233,7 +220,7 @@ app.get('/api/content-pages/:id', (req, res) => {
     const response = contentPages.find((page) => page.id === id);
     const found = response !== undefined;
 
-    res.status(found ? 200 : 404);
+    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
     return res.json(found ? { found, response } : { found });
 });
 
@@ -249,7 +236,7 @@ app.get('/api/blog-articles', (req, res) => {
         }))
         .sort((a, b) => Number(b.creationDate) - Number(a.creationDate));
     const found = response !== undefined;
-    res.status(found ? 200 : 404);
+    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
     return res.json(found ? { found, response } : { found });
 });
 
@@ -257,7 +244,7 @@ app.get('/api/blog-articles/:id', (req, res) => {
     const id = req.params.id;
     const response = blogArticles.find((article) => article.id === id);
     const found = response !== undefined;
-    res.status(found ? 200 : 404);
+    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
     return res.json(found ? { found, response } : { found });
 });
 
@@ -267,4 +254,4 @@ app.get('/*', (_, res) => {
     res.sendFile(join(spaDir, 'index.html'));
 });
 
-app.listen(port, () => console.log(`Express listening on port ${port}`));
+app.listen(port, () => console.log(`🦄 Server listening on port ${port}`));

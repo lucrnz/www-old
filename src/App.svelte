@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { pageTitle } from './config/pageTitle';
     import { Router, Route } from 'svelte-navigator';
-    import { aboutPageId } from './config/contentPageId';
+    import { contentPageId } from './config/contentPageId';
     import Header from './lib/Header/Header.svelte';
     import NotFoundPage from './pages/NotFoundPage.svelte';
     import HomePage from './pages/HomePage.svelte';
@@ -12,17 +11,9 @@
 
 <Router primary={false}>
     <main>
-        <Header
-            title={pageTitle}
-            routes={{
-                ['Home']: '/',
-                ['Blog']: '/blog',
-                ['Tools']: '/tools',
-                ['About']: '/about',
-            }}
-        />
+        <Header />
         <Route path="about">
-            <ContentPage id={aboutPageId} />
+            <ContentPage id={contentPageId.AboutMe} />
         </Route>
         <Route path="tools" component={ToolsPage} />
         <Route path="blog/*route" component={BlogPage} />

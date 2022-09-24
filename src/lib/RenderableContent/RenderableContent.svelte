@@ -38,8 +38,8 @@
     {:else if contents.type === RenderableContentType.Title}
         <Title>{param('value')}</Title>
     {:else if contents.type === RenderableContentType.Link}
-        <a href={param('href')}>{param('value')}</a>
+        <a href={param('url')} target="_blank" aria-label={param('alt')}>{param('value')}</a>
     {:else if contents.type === RenderableContentType.Image}
-        <Image id={param('id')} alt={param('alt')} />
+        <Image id={parseInt(param('id'))} alt={param('alt')} />
     {/if}
 {/if}

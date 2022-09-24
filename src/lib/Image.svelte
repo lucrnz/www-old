@@ -2,24 +2,22 @@
     import type { Writable } from 'svelte/store';
     import { writable } from 'svelte/store';
     import Status from './Status.svelte';
+    import Button from './Page/Button.svelte';
     import { fetchImageById } from '../util/api';
-    import isValidUUID from '../util/isValidUUID';
     import mapToCssVariables from '../util/mapToCssVariables';
     import { imageNotFound } from '../config/errorMessage';
-    import { tick } from 'svelte';
 
-    export let id = '';
+    export let id: number;
     export let height = 'auto';
     export let alt = 'Image';
 
-    let validId = id.length > 0 && isValidUUID(id);
-
-    const foundImage = writable(validId);
+    const foundImage = writable(true);
     const imageData: Writable<string> = writable('');
     const isLoading = writable(true);
     const haveError = writable(false);
 
     const loadImage = () => {
+        foundImage.set(true);
         isLoading.set(true);
         fetchImageById(id)
             .then(({ response, found }) => {
@@ -37,7 +35,7 @@
             });
     };
 
-    if (validId && $isLoading && !$haveError && $imageData.length === 0) {
+    if ($isLoading && !$haveError && $imageData.length === 0) {
         loadImage();
     }
 </script>
@@ -51,7 +49,7 @@
 {:else}
     <div class="img-not-found" style={mapToCssVariables({ height })}>
         <p>{imageNotFound}</p>
-        <button on:click={loadImage}>Retry</button>
+        <Button label="Retry" onClick={loadImage} />
     </div>
 {/if}
 
@@ -59,7 +57,12 @@
     @use '../variables.scss' as v;
 
     img {
+        margin: 1rem 0 1rem 0;
         max-width: 100%;
+
+        @media (min-width: 1444px) {
+            max-width: 45rem;
+        }
     }
 
     .img-not-found {
@@ -69,9 +72,5 @@
         padding: 1rem;
         height: var(--height);
         border: 0.1rem solid v.$gray;
-
-        & > button {
-            margin: 1rem 0 0 0;
-        }
     }
 </style>

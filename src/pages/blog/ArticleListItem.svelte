@@ -1,17 +1,16 @@
 <script lang="ts">
     import type { BlogArticle } from '../../types/BlogArticle';
     import { link } from 'svelte-navigator';
-    import mapToCssVariables from '../../util/mapToCssVariables';
     import Title from '../../lib/Page/Title.svelte';
 
     export let article: BlogArticle;
 
-    const articleUrl = `/blog/article/${article.id}`;
+    import { articleById } from '../../config/routes';
 </script>
 
 <div class="article-card">
     <div class="title">
-        <a href={articleUrl} use:link><Title>{article.title}</Title></a>
+        <a href={articleById(article.id)} use:link><Title>{article.title}</Title></a>
     </div>
     <div class="create-date">
         Created at {article.creationDate.toString()}

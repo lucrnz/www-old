@@ -1,26 +1,25 @@
 <script lang="ts">
-    import type { NavBarOption } from '../../types/navBar';
     import { link, useLocation } from 'svelte-navigator';
-    export let options: NavBarOption[];
+    import { routes } from '../../config/routes';
     const location = useLocation();
 </script>
 
 <nav>
     <ol>
-        {#each options as option, i}
+        {#each routes as route, i}
             <li>
                 <a
                     class={`nav-btn${
-                        option.path === '/'
-                            ? $location.pathname === option.path
+                        route.path === '/'
+                            ? $location.pathname === route.path
                                 ? ' nav-btn-sel'
                                 : ''
-                            : $location.pathname.startsWith(option.path)
+                            : $location.pathname.startsWith(route.path)
                             ? ' nav-btn-sel'
                             : ''
                     }${i === 0 ? ' nav-btn-first' : ''}`}
-                    href={option.path}
-                    use:link>{option.title}</a
+                    href={route.path}
+                    use:link>{route.title}</a
                 >
             </li>
         {/each}
@@ -68,12 +67,12 @@
         }
 
         &:hover {
-            background-color: #785d4a;
+            background-color: v.$secondary;
             text-decoration: none;
         }
 
         &:active {
-            background-color: #785d4a83;
+            background-color: scale-color(v.$secondary, $lightness: -30%);
         }
     }
 

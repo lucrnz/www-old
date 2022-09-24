@@ -14,6 +14,6 @@
     article {
         @include v.mx-auto;
         @include v.page-size;
-        // padding: 1rem 0 1rem 0;
+        padding: 1rem 0 1rem 0;
     }
 </style>

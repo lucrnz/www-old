@@ -51,7 +51,17 @@
             text-decoration: none;
         }
     }
+    a {
+        color: scale-color(v.$primary, $alpha: -30%);
 
+        &:hover {
+            color: scale-color(v.$primary, $alpha: -20%);
+        }
+
+        &:active {
+            color: scale-color(v.$primary, $alpha: -50%);
+        }
+    }
     .cc {
         display: inline-block;
         padding: 0.1rem 0 0 0;
@@ -67,6 +77,6 @@
         @include v.text-config;
         margin: 2rem 0 0 0;
         font-weight: 300;
-        color: scale-color(mix(v.$black, v.$white, 50%), $lightness: +20%);
+        color: scale-color(v.$white, $alpha: -30%);
     }
 </style>

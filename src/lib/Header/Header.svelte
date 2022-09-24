@@ -1,18 +1,15 @@
 <script lang="ts">
-    import type { NavBarRoutes } from '../../types/navBar';
-    import convertRoutesToNavBarOptions from '../../util/convertRoutesToNavBarOptions';
+    import { link } from 'svelte-navigator';
+    import { pageTitle } from '../../config/pageTitle';
     import NavBar from './NavBar.svelte';
     import Logo from './Logo.svelte';
-    export let title: string;
-    export let routes: NavBarRoutes;
-    const navBarOptions = convertRoutesToNavBarOptions(routes);
 </script>
 
 <header>
     <div class="container">
-        <Logo display="inline-block" />
-        <h1>{title}</h1>
-        <NavBar options={navBarOptions} />
+        <Logo />
+        <h1><a use:link href="/" aria-label="Go to the home page">{pageTitle}</a></h1>
+        <NavBar />
     </div>
 </header>
 
@@ -62,6 +59,15 @@
         @media (min-width: 1024px) {
             margin: 0 0.5rem 0 0;
             font-size: 2.2rem;
+        }
+    }
+
+    h1 > a {
+        color: unset;
+        &,
+        &:hover,
+        &:active {
+            text-decoration: none;
         }
     }
 </style>

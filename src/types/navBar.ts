@@ -1,8 +1,4 @@
-export type NavBarRoutes = {
-    [key: string]: string;
-};
-
-export type NavBarOption = {
+export type NavBarRoute = {
     title: string;
     path: string;
 };
