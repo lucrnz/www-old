@@ -19,17 +19,17 @@ enum RenderableContentType {
     Title,
 }
 
-const paragraphNode = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
+const paragraph = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
     type: RenderableContentType.Paragraph,
     params: { value: Array.isArray(value) ? value : [value] },
 });
 
-const sectionNode = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
+const section = (value: RenderableContent[] | RenderableContent): RenderableContent => ({
     type: RenderableContentType.Section,
     params: { value: Array.isArray(value) ? value : [value] },
 });
 
-const toggeableSectionNode = (
+const toggeableSection = (
     title: string,
     value: RenderableContent[] | RenderableContent
 ): RenderableContent => ({
@@ -42,20 +42,110 @@ const textNode = (value: string): RenderableContent => ({
     params: { value },
 });
 
-const linkNode = (url: string, alt: string, value: string): RenderableContent => ({
+const link = (url: string, alt: string, value: string): RenderableContent => ({
     type: RenderableContentType.Link,
     params: { url, alt, value },
 });
 
-const imageNode = (id: number, alt: string): RenderableContent => ({
+const image = (id: number, alt: string): RenderableContent => ({
     type: RenderableContentType.Image,
     params: { id: id.toString(), alt },
 });
 
-const titleNode = (value: string): RenderableContent => ({
+const title = (value: string): RenderableContent => ({
     type: RenderableContentType.Title,
     params: { value },
 });
+
+const compose = (
+    contents: (string | RenderableContent)[],
+    titleText: string = ''
+): RenderableContent => {
+    const sectionNodes: RenderableContent[] = [];
+
+    type Attribute = {
+        name: string;
+        value: string;
+    };
+
+    const processAttributes = (sourceStr: string, attrArray: Attribute[]) => {
+        let str = sourceStr;
+        while (str.length > 0 && str.includes('="')) {
+            let s1 = str.split('="');
+            const name = s1[0].substring(s1[0].indexOf(' ')).trim();
+            const value = s1[1].substring(0, s1[1].indexOf('"')).trim();
+            str = str.replace(`${name}="${value}"`, '').trim();
+            attrArray.push({ name, value } as Attribute);
+        }
+    };
+
+    const processDataStr = (paragraphNodes: RenderableContent[], dataStr: string) => {
+        if (dataStr.length >= 10 && dataStr.includes(' ')) {
+            const type = dataStr.substring(0, dataStr.indexOf(' '));
+            const attributes: Attribute[] = [];
+
+            processAttributes(dataStr.substring(dataStr.indexOf(' ') + 1), attributes);
+
+            if (attributes.length > 0) {
+                switch (type) {
+                    case 'img':
+                        paragraphNodes.push(
+                            image(
+                                Number(attributes.find((a) => a.name === 'id')?.value as string),
+                                attributes.find((a) => a.name === 'alt')?.value as string
+                            )
+                        );
+                        break;
+                    case 'link':
+                        paragraphNodes.push(
+                            link(
+                                attributes.find((a) => a.name === 'url')?.value as string,
+                                attributes.find((a) => a.name === 'alt')?.value as string,
+                                attributes.find((a) => a.name === 'value')?.value as string
+                            )
+                        );
+                        break;
+                }
+            }
+        }
+    };
+
+    for (const node of contents) {
+        if (typeof node !== 'string') {
+            sectionNodes.push(node);
+            break;
+        }
+        let nodeStr = node as string;
+        const tagStart = '<%%';
+        const tagEnd = '%%>';
+
+        if (nodeStr.includes(tagStart) && nodeStr.includes(tagEnd)) {
+            const paragraphNodes: RenderableContent[] = [];
+            while (nodeStr.indexOf(tagStart) != -1 && nodeStr.indexOf(tagEnd) != -1) {
+                const s1 = node.split(tagStart);
+                const s2 = s1[1].split(tagEnd);
+                const textBefore = s1[0].slice();
+                const textAfter = s2[1].slice();
+                paragraphNodes.push(textNode(textBefore));
+                const dataStr = s2[0];
+                processDataStr(paragraphNodes, dataStr);
+                nodeStr = nodeStr.replace(tagStart, '');
+                nodeStr = nodeStr.replace(tagEnd, '');
+                nodeStr = nodeStr.replace(dataStr, '');
+                paragraphNodes.push(textNode(textAfter));
+                sectionNodes.push(paragraph(paragraphNodes));
+            }
+        } else {
+            sectionNodes.push(section(paragraph(textNode(nodeStr))));
+        }
+    }
+
+    if (titleText.length > 0) {
+        sectionNodes.unshift(title(titleText));
+    }
+
+    return section(sectionNodes);
+};
 
 const blogArticles: BlogArticle[] = [
     {
