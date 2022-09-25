@@ -2,53 +2,6 @@
 // @TODO:   Node + TypeScript is really weird as a backend ???
 //          .NET Core C# M̶i̶c̶r̶o̶s̶o̶f̶t̶ ̶D̶a̶d̶d̶y̶ ?? Go ? Rust? Deno?? P̶y̶t̶h̶o̶n̶ ̶+̶ ̶F̶l̶a̶s̶k̶
 /*  --------------------------------------------------------*/
-/* blog.ts */
-/*  --------------------------------------------------------*/
-import type { BlogArticle } from '../src/types/BlogArticle';
-import type { RenderableContent } from '../src/types/RenderableContent';
-import type { ContentPage } from '../src/types/ContentPage';
-
-const blogArticles: BlogArticle[] = [
-    {
-        id: '20220919-hello-world',
-        title: 'Hello World - Why I created my website after 10 years',
-        contents: [
-            compose(
-                [
-                    `Finally, after coding for hours non-stop, and reading a lot of blogs while wishing to have my own,I can start mine. ` +
-                        `It's been a while since I have a website... probably around 10 years.`,
-                    `I enjoy lurking, it's how I am, creating content was not something that I really had in mind at that moment.`,
-                    `Blogs are probably an overused type for a personal site, but who cares?`,
-                    `Writing about random stuff sounds really fun!`,
-                    image(0, 'Cup filled with coffee near book'),
-                ],
-                'Hello World - Why I created my website after 10 years'
-            ),
-            compose(
-                [
-                    `I started coding this site around 10 days ago, I must admit I over-engineered it in a way, because I really wanted a SPA, ` +
-                        `there are a lot of tools to easily get a blog running, but I just didn't wanted to take the easy path.`,
-                    `My own hand-crafted site, my original idea was to even create a JS framework, but I ditched it inmediately after ` +
-                        `realizing it wasn't that easy: State management, know when to re-render components. I wanted all. Of course, I gave up. ` +
-                        `I did it because it was already done: either <%%link alt="Go to Svelte site" url="https://svelte.dev/" value="Svelte" %%> or ` +
-                        `<%%link alt="Go to Million js site" url="https://millionjs.org/" value="Million" %%> were exactly what I thought.`,
-                ],
-                'Programming'
-            ),
-            compose([
-                `React is a really popular library, and It was my first components experience, it changed my way of thinking about UI completely, ` +
-                    `but It has a big problem: over-head and bundle size.`,
-                `For a while I was absent from web development and refused to use Node or Npm while just using Vanilla JavaScript ` +
-                    `for interaction code, having bad experiences with big libraries like JQuery and poor architecture.`,
-                `Right now, I got alternatives, pnpm as a package manager that doesn't create giant ` +
-                    `node_modules folders, Svelte, <%%link alt="Go to Preact site" url="https://preactjs.com/" value="Preact" %%> or Million as lightweight frameworks, Vite instead of the tedious and slow webpack.`,
-            ]),
-        ],
-        creationDate: new Date(1663556808991),
-        readTimeMinutes: 2,
-        description: 'This is my first post',
-    },
-];
 /*  --------------------------------------------------------*/
 /* pages.ts */
 /*  --------------------------------------------------------*/
