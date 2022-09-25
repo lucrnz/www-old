@@ -1,8 +1,8 @@
 <!-- {
     "title": "Hello World - Why I created my website after 10 years",
-    "creationDate": 1663556808991,
+    "creationDate": "1663556808991",
     "readTimeMinutes": 2,
-    "description": "What it feels to have a website again."
+    "description": "What it feels like to have a website again."
 } -->
 
 # Hello World - Why I created my website after 10 years

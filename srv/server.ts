@@ -1,90 +1,117 @@
-// @TODO:   FIX IMPORT SO I can have the blog on another file!!!!!!!
 // @TODO:   Node + TypeScript is really weird as a backend ???
 //          .NET Core C# M̶i̶c̶r̶o̶s̶o̶f̶t̶ ̶D̶a̶d̶d̶y̶ ?? Go ? Rust? Deno?? P̶y̶t̶h̶o̶n̶ ̶+̶ ̶F̶l̶a̶s̶k̶
-/*  --------------------------------------------------------*/
-/*  --------------------------------------------------------*/
-/* pages.ts */
-/*  --------------------------------------------------------*/
 
-const contentPages: ContentPage[] = [
-    {
-        id: 'about-me',
-        title: 'About me',
-        contents: [
-            compose(
-                [
-                    `My Name is Lucien, I am 27 years old. I go by they/them pronouns.`,
-                    `I am a developer from Argentina.`,
-                ],
-                'About me'
-            ),
-            compose(
-                [
-                    `I learned programming by myself, I find it enjoyable to create programs or scripts that` +
-                        `solves problems.`,
-                    `I work as a fullstack software developer at a known international company, but I enjoy` +
-                        `a lot more front-end.`,
-                    `My tech skills include but are not limited to: JavaScript, C#, Go and a little bit of C.` +
-                        `Even tho I dont wanna touch C ever again.`,
-                    `Originally I created this website to practice my front-end development skills.`,
-                ],
-                'Hobbies: Programming'
-            ),
-            compose(
-                [
-                    `Apart from programming I enjoy gaming (both PC and VR), going out for a walk, working
-                    out,`,
-                    `watching cartoons or tv shows, and generally enjoying my time with my partner.`,
-                ],
-                'Hobbies: General'
-            ),
-            toggeableSection('Life views', [
-                compose([
-                    `I have my own definition of nihilism, I try to re-think how I interact with everything` +
-                        `and find my own conclusions about them.`,
-                    `While I try to remain positive as I found out that being too realistic or negative is` +
-                        `depressive.`,
-                    `I identify as gender non-binary, as I dont associate with either cultural masculiny or`,
-                    `femininity, I enjoy creating my own meaning of gender expression. I fully support LGBTQIA+.`,
-                    `I believe everyone should be treated the same regardless of gender, and that people` +
-                        `should show their own interests instead of what society tells them to do.`,
-                    `I believe killing animals for own pleasure or enjoyment is bad and should not be done.` +
-                        `I only feed myself with plant based food.`,
-                    `I don't believe in modern feminism as It seems to be hembrism or female-side sexism.`,
-                ]),
-            ]),
-        ],
-    },
-];
-
-/*  --------------------------------------------------------*/
-/* server.ts */
-/*  --------------------------------------------------------*/
 import express from 'express';
 import dotenv from 'dotenv';
 import { fileTypeFromBuffer } from 'file-type';
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
-import { existsSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { StatusCodes } from 'http-status-codes';
+import type { ContentPage } from '../src/types/ContentPage';
+import type { BlogArticle } from '../src/types/BlogArticle';
 
-const baseDir = join(dirname(fileURLToPath(import.meta.url)), '..');
-const spaDir = join(baseDir, 'dist');
-const imgDir = join(baseDir, 'img');
+const baseDir = dirname(fileURLToPath(import.meta.url));
+const spaDir = resolve(join(baseDir, '..', 'dist'));
+const imgDir = resolve(join(baseDir, '..', 'img'));
+const blogDir = resolve(join(baseDir, 'blog'));
+const pagesDir = resolve(join(baseDir, 'pages'));
 
-if (!existsSync(spaDir)) {
-    console.error('Error: SPA folder does not exist. Did you forget to run the build script?');
+if (!existsSync(spaDir) || !existsSync(imgDir) || !existsSync(blogDir) || !existsSync(pagesDir)) {
+    console.error('Error: Any of these folders does not exists', {
+        spaDir,
+        imgDir,
+        blogDir,
+        pagesDir,
+    });
     process.exit(1);
 }
 
-if (!existsSync(imgDir)) {
-    console.error('Error: Images folder does not exist.');
-    process.exit(1);
-}
+type ProcessEntryAttributes = { [key: string]: string };
+
+type ProcessEntryItem = {
+    fileName: string;
+    fileNameNoExt: string;
+    contents: string;
+    attributes: ProcessEntryAttributes;
+};
+
+const readMarkdownFilesAndParseAttributes = (
+    directory: string,
+    processEntry: (item: ProcessEntryItem) => void
+) => {
+    for (const entry of readdirSync(directory)) {
+        if (!entry.includes('.md')) {
+            continue;
+        }
+
+        const fpath = join(directory, entry);
+        const contents = readFileSync(fpath).toString('utf-8');
+        const enterTag = '<!--';
+        const closeTag = '-->';
+        const enterTagIndex = contents.indexOf(enterTag);
+        const closeTagIndex = contents.indexOf(closeTag);
+
+        if (enterTagIndex === -1 || closeTagIndex === -1) {
+            console.error(`Invalid blog entry: ${fpath} : No attributes json tag.`);
+            continue;
+        }
+
+        if (enterTagIndex !== -1 && closeTagIndex !== -1) {
+            const jsonData = contents
+                .substring(enterTagIndex + enterTag.length, closeTagIndex)
+                .trim();
+            let attributes = {};
+
+            try {
+                attributes = JSON.parse(jsonData);
+            } catch (err) {
+                console.error(`Invalid entry: ${fpath} : Attributes data json parse failed.`);
+                console.error(err);
+                continue;
+            }
+
+            if (Object.keys(attributes).length === 0) {
+                console.error(`Invalid entry: ${fpath} : Attributes has no keys.`);
+                continue;
+            }
+
+            processEntry({
+                fileName: entry,
+                fileNameNoExt: entry.split('.md')[0],
+                contents: contents.substring(closeTagIndex + closeTag.length).trim(),
+                attributes,
+            } as ProcessEntryItem);
+        }
+    }
+};
+
+const blogArticles: BlogArticle[] = [];
+const contentPages: ContentPage[] = [];
+
+readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
+    blogArticles.push({
+        id: entry.fileNameNoExt,
+        title: entry.attributes['title'],
+        contents: entry.contents,
+        creationDate: new Date(Number(entry.attributes['creationDate'])),
+        description: entry.attributes['description'],
+    } as BlogArticle);
+});
+
+readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
+    contentPages.push({
+        id: entry.fileNameNoExt,
+        title: entry.attributes['title'],
+        contents: entry.contents,
+    } as ContentPage);
+});
+
+console.log(`Loaded ${blogArticles.length} blog articles.`);
+console.log(`Loaded ${contentPages.length} pages.`);
 
 dotenv.config();
-
 const app = express();
 const port = (process.env.PORT ? Number(process.env.PORT) : 0) || 8000;
 
