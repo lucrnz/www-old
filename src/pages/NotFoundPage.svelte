@@ -1,11 +1,11 @@
 <script lang="ts">
     import { onMount, tick } from 'svelte';
-    import Wrapper from '../lib/Page/Wrapper.svelte';
-    import Title from '../lib/Page/Title.svelte';
-    import Section from '../lib/Page/Section.svelte';
-    import Paragraph from '../lib/Page/Paragraph.svelte';
+    import Wrapper from '../lib/Wrapper.svelte';
+    import Title from '../lib/Title.svelte';
+    import Section from '../lib/Section.svelte';
+    import Paragraph from '../lib/Paragraph.svelte';
     import getNewPageTitle from '../util/getNewPageTitle';
-    import Button from '../lib/Page/Button.svelte';
+    import Button from '../lib/Button.svelte';
 
     export let retry: (
         event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }

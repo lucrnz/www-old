@@ -15,7 +15,14 @@
          */
         "allowJs": true,
         "checkJs": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "paths": {
+            "@config/*": ["src/config/*"],
+            "@lib/*": ["src/lib/*"],
+            "@pages/*": ["src/pages/*"],
+            "@types/*": ["src/types/*"],
+            "@util/*": ["src/util/*"]
+        }
     },
     "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
     "references": [{ "path": "./tsconfig.node.json" }]

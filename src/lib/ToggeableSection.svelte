@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { inAnimation, inConfig } from '../../config/animationConfig.js';
-    import ArrowIcon from '../ArrowIcon.svelte';
+    import { inAnimation, inConfig } from '@config/animationConfig.js';
+    import ArrowIcon from './ArrowIcon.svelte';
     export let intent: string = 'display contents';
     export let title: string = '';
     let show = false;

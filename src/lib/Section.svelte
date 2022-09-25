@@ -3,7 +3,7 @@
 </section>
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     section {
         @include v.text-config;

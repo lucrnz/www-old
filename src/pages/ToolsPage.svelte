@@ -1,8 +1,8 @@
 <script>
     import { onMount } from 'svelte';
-    import Title from '../lib/Page/Title.svelte';
-    import Paragraph from '../lib/Page/Paragraph.svelte';
-    import Wrapper from '../lib/Page/Wrapper.svelte';
+    import Title from '../lib/Title.svelte';
+    import Paragraph from '../lib/Paragraph.svelte';
+    import Wrapper from '../lib/Wrapper.svelte';
     import getNewPageTitle from '../util/getNewPageTitle';
 
     onMount(() => {

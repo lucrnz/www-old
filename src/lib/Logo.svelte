@@ -1,5 +1,5 @@
 <script lang="ts">
-    import mapToCssVariables from '../../util/mapToCssVariables';
+    import mapToCssVariables from '../util/mapToCssVariables';
     import imageUrl from '../../assets/logo.svg';
     const altText = 'Pepe the frog';
 </script>
@@ -13,7 +13,7 @@
 />
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     div {
         background-image: var(--url);

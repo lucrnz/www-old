@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -7,6 +8,15 @@ export default defineConfig(({ command, mode }) => {
 
     return {
         plugins: [svelte()],
+        resolve: {
+            alias: {
+                '@config': resolve('./src/config'),
+                '@lib': resolve('./src/lib'),
+                '@pages': resolve('./src/pages'),
+                '@types': resolve('./src/types'),
+                '@util': resolve('./src/util'),
+            },
+        },
         server: {
             host: isDevMode ? '127.0.0.1' : '::',
             port: 3000,

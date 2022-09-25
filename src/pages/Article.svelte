@@ -2,13 +2,12 @@
     import type { BlogArticle } from 'src/types/BlogArticle';
     import type { Writable } from 'svelte/store';
     import { writable } from 'svelte/store';
-    import { blogArticleById } from '../../config/apiRoute';
-    import { fetchApi } from '../../util/api';
-    import getNewPageTitle from '../../util/getNewPageTitle';
-    import NotFoundPage from '../NotFoundPage.svelte';
-    import RenderableContent from '../../lib/RenderableContent/RenderableContent.svelte';
-    import Status from '../../lib/Status.svelte';
-    import Wrapper from '../../lib/Page/Wrapper.svelte';
+    import { blogArticleById } from '@config/apiRoute';
+    import { fetchApi } from '@util/api';
+    import getNewPageTitle from '@util/getNewPageTitle';
+    import NotFoundPage from './NotFoundPage.svelte';
+    import Status from '@lib/Status.svelte';
+    import Wrapper from '@lib/Wrapper.svelte';
 
     export let id = '';
 

@@ -1,7 +1,7 @@
 <h2><slot /></h2>
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     h2 {
         @include v.text-config;

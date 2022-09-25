@@ -1,6 +1,6 @@
 <script lang="ts">
     import { link, useLocation } from 'svelte-navigator';
-    import { routes } from '../../config/routes';
+    import { routes } from '@config/routes';
     const location = useLocation();
 </script>
 
@@ -27,7 +27,7 @@
 </nav>
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     nav {
         margin: 0.5rem 0 0.5rem 0;

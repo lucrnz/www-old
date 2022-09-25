@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { Writable } from 'svelte/store';
     import { writable } from 'svelte/store';
-    import Status from './Status.svelte';
-    import Button from './Page/Button.svelte';
-    import { fetchImageById } from '../util/api';
-    import mapToCssVariables from '../util/mapToCssVariables';
-    import { imageNotFound } from '../config/errorMessage';
+    import Status from '@lib/Status.svelte';
+    import Button from '@lib/Button.svelte';
+    import { fetchImageById } from '@util/api';
+    import mapToCssVariables from '@util/mapToCssVariables';
+    import { imageNotFound } from '@config/errorMessage';
 
     export let id: number;
     export let height = 'auto';

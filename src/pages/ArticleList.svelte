@@ -1,15 +1,15 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
-    import { fetchApi } from '../../util/api';
-    import { blogArticle } from '../../config/apiRoute';
+    import { fetchApi } from '@util/api';
+    import { blogArticle } from '@config/apiRoute';
+    import getNewPageTitle from '@util/getNewPageTitle';
+    import Paragraph from '@lib/Paragraph.svelte';
+    import Status from '@lib/Status.svelte';
+    import Title from '@lib/Title.svelte';
+    import Wrapper from '@lib/Wrapper.svelte';
     import ArticleListItem from './ArticleListItem.svelte';
-    import getNewPageTitle from '../../util/getNewPageTitle';
-    import Paragraph from '../../lib/Page/Paragraph.svelte';
-    import Status from '../../lib/Status.svelte';
-    import Title from '../../lib/Page/Title.svelte';
-    import Wrapper from '../../lib/Page/Wrapper.svelte';
-    import NotFoundPage from '../NotFoundPage.svelte';
+    import NotFoundPage from './NotFoundPage.svelte';
 
     const foundPage = writable(true);
     const articles = writable([]);

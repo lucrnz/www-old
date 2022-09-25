@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Router, Route } from 'svelte-navigator';
-    import NotFoundPage from '../NotFoundPage.svelte';
+    import NotFoundPage from './NotFoundPage.svelte';
     import Article from './Article.svelte';
     import ArticleList from './ArticleList.svelte';
 </script>

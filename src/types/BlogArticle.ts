@@ -1,9 +1,7 @@
-import type { RenderableContent } from './RenderableContent';
-
 export type BlogArticle = {
     id: string;
     title: string;
-    contents: RenderableContent[];
+    contents: string;
     creationDate: Date;
     readTimeMinutes: number;
     description: string;
