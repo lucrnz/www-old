@@ -3,6 +3,8 @@
 
 import express from 'express';
 import dotenv from 'dotenv';
+import type { BinaryLike } from 'node:crypto';
+import { createHash } from 'node:crypto';
 import { fileTypeFromBuffer } from 'file-type';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -27,6 +29,13 @@ if (!existsSync(spaDir) || !existsSync(imgDir) || !existsSync(blogDir) || !exist
     });
     process.exit(1);
 }
+
+const hashData = (data: BinaryLike) => createHash('sha256').update(data).digest('hex');
+
+type HashedResource<T> = {
+    hash: string;
+    value: T;
+};
 
 type ProcessEntryAttributes = { [key: string]: string };
 
@@ -87,25 +96,39 @@ const readMarkdownFilesAndParseAttributes = (
     }
 };
 
-const blogArticles: BlogArticle[] = [];
-const contentPages: ContentPage[] = [];
+const blogArticles: HashedResource<BlogArticle>[] = [];
+const contentPages: HashedResource<ContentPage>[] = [];
 
 readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
-    blogArticles.push({
+    const blogArticle = {
         id: entry.fileNameNoExt,
         title: entry.attributes['title'],
         contents: entry.contents,
         creationDate: new Date(Number(entry.attributes['creationDate'])),
         description: entry.attributes['description'],
-    } as BlogArticle);
+    } as BlogArticle;
+
+    const hash = hashData(
+        `${blogArticle.id}${blogArticle.title}${blogArticle.contents}${blogArticle.creationDate}${blogArticle.description}`
+    );
+    blogArticles.push({
+        value: blogArticle,
+        hash,
+    } as HashedResource<BlogArticle>);
 });
 
-readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
-    contentPages.push({
+readMarkdownFilesAndParseAttributes(pagesDir, (entry: ProcessEntryItem) => {
+    const page = {
         id: entry.fileNameNoExt,
         title: entry.attributes['title'],
         contents: entry.contents,
-    } as ContentPage);
+    } as ContentPage;
+    const hash = hashData(`${page.id}${page.title}${page.contents}`);
+
+    contentPages.push({
+        value: page,
+        hash,
+    } as HashedResource<ContentPage>);
 });
 
 console.log(`📄 Loaded ${blogArticles.length} blog articles.`);
@@ -121,12 +144,13 @@ const antiPathTransversalAttack = (path: string): boolean =>
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
+    console.log(`➡️ ${req.method} ${req.url}`);
     next();
 });
 
 app.get('/image/:id', async (req, res) => {
     const id = req.params.id;
+    const doGetHash: boolean = Boolean(req.query.hash);
 
     if (isNaN(parseInt(id))) {
         return res.sendStatus(StatusCodes.BAD_REQUEST);
@@ -139,57 +163,101 @@ app.get('/image/:id', async (req, res) => {
     }
 
     const fileData = await readFile(filePath);
-    const fileInfo = await fileTypeFromBuffer(fileData);
 
-    res.writeHead(200, {
-        'Content-Type': fileInfo?.mime,
-        'Content-disposition': `attachment;filename=image-${id}.${fileInfo?.ext}`,
-        'Content-Length': fileData.length,
-    });
-    res.end(fileData);
+    if (doGetHash) {
+        res.type('text');
+        res.send(hashData(fileData));
+    } else {
+        const fileInfo = await fileTypeFromBuffer(fileData);
+        res.writeHead(200, {
+            'Content-Type': fileInfo?.mime,
+            'Content-disposition': `attachment;filename=image-${id}.${fileInfo?.ext}`,
+            'Content-Length': fileData.length,
+        });
+        res.end(fileData);
+    }
 });
 
 app.get('/api/content-pages/:id', (req, res) => {
     const id = req.params.id;
+    const doGetHash: boolean = Boolean(req.query.hash);
 
     if (antiPathTransversalAttack(id)) {
         return res.sendStatus(StatusCodes.BAD_REQUEST);
     }
 
-    const response = contentPages.find((page) => page.id === id);
-    const found = response !== undefined;
+    const resource: HashedResource<ContentPage> | undefined = contentPages.find(
+        (page) => page.value.id === id
+    );
+    const found = resource !== undefined;
 
-    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
-    return res.json(found ? { found, response } : { found });
+    if (doGetHash) {
+        if (resource === undefined) {
+            return res.sendStatus(StatusCodes.NOT_FOUND);
+        }
+        res.type('text');
+        res.send(resource.hash);
+    } else {
+        res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
+        return res.json(found ? { found, response: resource.value } : { found });
+    }
 });
 
 app.get('/api/blog-articles', (req, res) => {
     // Return articles sorted desc. (Latest first.)
-    const response = blogArticles
-        .map((article) => ({
-            id: article.id,
-            title: article.title,
-            creationDate: article.creationDate,
-            readTimeMinutes: article.readTimeMinutes,
-            description: article.description,
-        }))
-        .sort((a, b) => Number(b.creationDate) - Number(a.creationDate));
-    const found = response !== undefined;
-    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
-    return res.json(found ? { found, response } : { found });
+    const doGetHash: boolean = Boolean(req.query.hash);
+    const resources = blogArticles.sort(
+        (a, b) => Number(b.value.creationDate) - Number(a.value.creationDate)
+    );
+
+    if (resources.length === 0) {
+        return res.sendStatus(StatusCodes.NOT_FOUND);
+    }
+
+    if (doGetHash) {
+        let accumulator = '';
+        for (const resource of resources) {
+            accumulator += `${resource.hash};`;
+        }
+
+        res.type('text');
+        return res.send(hashData(accumulator));
+    } else {
+        const response = resources.map(
+            (res) =>
+                ({
+                    id: res.value.id,
+                    title: res.value.title,
+                    creationDate: res.value.creationDate,
+                    readTimeMinutes: res.value.readTimeMinutes,
+                    description: res.value.description,
+                } as Partial<BlogArticle>)
+        );
+        return res.json({ response });
+    }
 });
 
 app.get('/api/blog-articles/:id', (req, res) => {
     const id = req.params.id;
+    const doGetHash: boolean = Boolean(req.query.hash);
 
     if (antiPathTransversalAttack(id)) {
         return res.sendStatus(StatusCodes.BAD_REQUEST);
     }
 
-    const response = blogArticles.find((article) => article.id === id);
-    const found = response !== undefined;
-    res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);
-    return res.json(found ? { found, response } : { found });
+    const resource: HashedResource<BlogArticle> | undefined = blogArticles.find(
+        (res) => res.value.id === id
+    );
+    if (resource === undefined) {
+        return res.sendStatus(StatusCodes.NOT_FOUND);
+    }
+
+    if (doGetHash) {
+        res.type('text');
+        return res.send(resource.hash);
+    } else {
+        return res.json({ response: resource.value });
+    }
 });
 
 app.use('/', express.static(spaDir));

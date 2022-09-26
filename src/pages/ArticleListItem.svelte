@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { BlogArticle } from '@types/BlogArticle';
+    import type { BlogArticle } from '$types/BlogArticle';
     import { link } from 'svelte-navigator';
-    import Title from '@lib/Title.svelte';
+    import Title from '$lib/Title.svelte';
 
     export let article: BlogArticle;
 
-    import { articleById } from '@config/routes';
+    import { articleById } from '$config/routes';
 </script>
 
 <div class="article-card">

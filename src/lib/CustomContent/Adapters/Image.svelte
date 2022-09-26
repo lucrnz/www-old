@@ -1,5 +1,5 @@
 <script type="ts">
-    import Image from '@lib/Image.svelte';
+    import Image from '$lib/Image.svelte';
     export let href: string;
     export let text: string;
 

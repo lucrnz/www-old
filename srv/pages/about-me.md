@@ -18,7 +18,7 @@ Originally I created this website to practice my front-end development skills.
 Apart from programming I enjoy gaming (both PC and VR), going out for a walk, working
 out, watching cartoons or tv shows, and generally enjoying my time with my partner.
 
-# @toggeable Life views
+# Life views
 
 I have my own definition of nihilism, I try to re-think how I interact with everything
 and find my own conclusions about them.

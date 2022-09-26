@@ -10,12 +10,12 @@ export default defineConfig(({ command, mode }) => {
         plugins: [svelte()],
         resolve: {
             alias: {
-                '@assets': resolve('./src/assets'),
-                '@config': resolve('./src/config'),
-                '@lib': resolve('./src/lib'),
-                '@pages': resolve('./src/pages'),
-                '@types': resolve('./src/types'),
-                '@util': resolve('./src/util'),
+                $assets: resolve('./src/assets'),
+                $config: resolve('./src/config'),
+                $lib: resolve('./src/lib'),
+                $pages: resolve('./src/pages'),
+                $types: resolve('./src/types'),
+                $util: resolve('./src/util'),
             },
         },
         server: {

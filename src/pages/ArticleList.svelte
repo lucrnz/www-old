@@ -1,13 +1,13 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
-    import { fetchApi } from '@util/api';
-    import { blogArticle } from '@config/apiRoute';
-    import getNewPageTitle from '@util/getNewPageTitle';
-    import Paragraph from '@lib/Paragraph.svelte';
-    import Status from '@lib/Status.svelte';
-    import Title from '@lib/Title.svelte';
-    import Wrapper from '@lib/Wrapper.svelte';
+    import { fetchApi } from '$util/api';
+    import { blogArticle } from '$config/apiRoute';
+    import getNewPageTitle from '$util/getNewPageTitle';
+    import Paragraph from '$lib/Paragraph.svelte';
+    import Status from '$lib/Status.svelte';
+    import Title from '$lib/Title.svelte';
+    import Wrapper from '$lib/Wrapper.svelte';
     import ArticleListItem from './ArticleListItem.svelte';
     import NotFoundPage from './NotFoundPage.svelte';
 

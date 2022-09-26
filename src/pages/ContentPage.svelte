@@ -2,13 +2,13 @@
     import type { ContentPage } from 'src/types/ContentPage';
     import type { Writable } from 'svelte/store';
     import { writable } from 'svelte/store';
-    import { contentPageById } from '@config/apiRoute';
-    import { fetchApi } from '@util/api';
-    import getNewPageTitle from '@util/getNewPageTitle';
+    import { contentPageById } from '$config/apiRoute';
+    import { fetchApi } from '$util/api';
+    import getNewPageTitle from '$util/getNewPageTitle';
     import NotFoundPage from './NotFoundPage.svelte';
-    import Status from '@lib/Status.svelte';
-    import Wrapper from '@lib/Wrapper.svelte';
-    import CustomContent from '@lib/CustomContent/CustomContent.svelte';
+    import Status from '$lib/Status.svelte';
+    import Wrapper from '$lib/Wrapper.svelte';
+    import CustomContent from '$lib/CustomContent/CustomContent.svelte';
 
     export let id = '';
     const validId = id.length > 0;

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { link } from 'svelte-navigator';
-    import { pageTitle } from '@config/pageTitle';
+    import { pageTitle } from '$config/pageTitle';
     import NavBar from './NavBar.svelte';
     import Logo from './Logo.svelte';
 </script>

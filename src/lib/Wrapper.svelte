@@ -1,6 +1,6 @@
 <script lang="ts">
     import Footer from './Footer.svelte';
-    import { inAnimation, inConfig } from '@config/animationConfig.js';
+    import { inAnimation, inConfig } from '$config/animationConfig.js';
 </script>
 
 <article in:inAnimation={inConfig}>

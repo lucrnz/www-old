@@ -17,12 +17,12 @@
         "checkJs": true,
         "isolatedModules": true,
         "paths": {
-            "@assets/*": ["src/assets/*"],
-            "@config/*": ["src/config/*"],
-            "@lib/*": ["src/lib/*"],
-            "@pages/*": ["src/pages/*"],
-            "@types/*": ["src/types/*"],
-            "@util/*": ["src/util/*"]
+            "$assets/*": ["src/assets/*"],
+            "$config/*": ["src/config/*"],
+            "$lib/*": ["src/lib/*"],
+            "$pages/*": ["src/pages/*"],
+            "$types/*": ["src/types/*"],
+            "$util/*": ["src/util/*"]
         }
     },
     "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

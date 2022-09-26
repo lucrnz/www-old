@@ -1,12 +1,16 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+    import { log } from '$util/devMode';
     import { Router, Route } from 'svelte-navigator';
-    import { contentPageId } from '@config/contentPageId';
-    import Header from '@lib/Header.svelte';
-    import NotFoundPage from '@pages/NotFoundPage.svelte';
-    import HomePage from '@pages/HomePage.svelte';
-    import ContentPage from '@pages/ContentPage.svelte';
-    import ToolsPage from '@pages/ToolsPage.svelte';
-    import BlogPage from '@pages/BlogPage.svelte';
+    import { contentPageId } from '$config/contentPageId';
+    import Header from '$lib/Header.svelte';
+    import NotFoundPage from '$pages/NotFoundPage.svelte';
+    import HomePage from '$pages/HomePage.svelte';
+    import ContentPage from '$pages/ContentPage.svelte';
+    import ToolsPage from '$pages/ToolsPage.svelte';
+    import BlogPage from '$pages/BlogPage.svelte';
+
+    onMount(log.bind(null, '🦄 App mounted'));
 </script>
 
 <Router primary={false}>

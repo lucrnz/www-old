@@ -1,5 +1,5 @@
 <script lang="ts">
-    import mapToCssVariables from '@util/mapToCssVariables';
+    import mapToCssVariables from '$util/mapToCssVariables';
     export let sizeRem = 0.7;
     export let direction = 'up';
     export let color = window.getComputedStyle(document.body).color;

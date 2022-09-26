@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { errorMessage } from '@config/errorMessage';
-    import mapToCssVariables from '@util/mapToCssVariables';
-    import { loaderSvg } from '@config/loaderSvg';
+    import { errorMessage } from '$config/errorMessage';
+    import mapToCssVariables from '$util/mapToCssVariables';
+    import { loaderSvg } from '$config/loaderSvg';
     export let haveError = false;
     export let isLoading: boolean = false;
     export let height: string = 'auto';

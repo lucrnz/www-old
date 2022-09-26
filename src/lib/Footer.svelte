@@ -2,11 +2,11 @@
     import logoCreativeCommonsCcUrl from '../assets/creative-commons-cc.svg';
     import logoCreativeCommonsByUrl from '../assets/creative-commons-by.svg';
     import logoCreativeCommonsSaUrl from '../assets/creative-commons-sa.svg';
-    import mapToCssVariables from '@util/mapToCssVariables';
+    import mapToCssVariables from '$util/mapToCssVariables';
 
     const ccUrl = (logoUrl: string): string => mapToCssVariables({ url: `url(${logoUrl})` });
 
-    import { authorFullName, copyrightYearFrom } from '@config/copyright';
+    import { authorFullName, copyrightYearFrom } from '$config/copyright';
     const currentYear: number = new Date().getUTCFullYear();
     const copyrightYear: string =
         copyrightYearFrom === currentYear
