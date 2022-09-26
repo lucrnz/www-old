@@ -10,7 +10,7 @@
             let t0 = href.substring(1);
             id = t0.substring(t0.indexOf('/') + 1);
         } else {
-            id = t0.substring(t0.indexOf('/') + 1);
+            id = href.substring(href.indexOf('/') + 1);
         }
     }
 
