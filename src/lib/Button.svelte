@@ -9,7 +9,7 @@
 <button on:click={onClick}>{label}</button>
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     button {
         @include v.text-config;

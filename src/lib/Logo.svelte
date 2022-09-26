@@ -1,6 +1,6 @@
 <script lang="ts">
-    import mapToCssVariables from '../util/mapToCssVariables';
-    import imageUrl from '../../assets/logo.svg';
+    import mapToCssVariables from '@util/mapToCssVariables';
+    import imageUrl from '@assets/logo.svg';
     const altText = 'Pepe the frog';
 </script>
 

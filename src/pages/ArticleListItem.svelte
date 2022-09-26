@@ -24,7 +24,7 @@
 </div>
 
 <style lang="scss">
-    @use '../../variables.scss' as v;
+    @use '../variables.scss' as v;
 
     .article-card {
         .create-date,

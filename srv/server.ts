@@ -108,12 +108,15 @@ readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
     } as ContentPage);
 });
 
-console.log(`Loaded ${blogArticles.length} blog articles.`);
-console.log(`Loaded ${contentPages.length} pages.`);
+console.log(`📄 Loaded ${blogArticles.length} blog articles.`);
+console.log(`📄 Loaded ${contentPages.length} pages.`);
 
 dotenv.config();
 const app = express();
 const port = (process.env.PORT ? Number(process.env.PORT) : 0) || 8000;
+
+const antiPathTransversalAttack = (path: string): boolean =>
+    path.includes('..') || path.includes('/');
 
 app.disable('x-powered-by');
 
@@ -148,6 +151,11 @@ app.get('/image/:id', async (req, res) => {
 
 app.get('/api/content-pages/:id', (req, res) => {
     const id = req.params.id;
+
+    if (antiPathTransversalAttack(id)) {
+        return res.sendStatus(StatusCodes.BAD_REQUEST);
+    }
+
     const response = contentPages.find((page) => page.id === id);
     const found = response !== undefined;
 
@@ -173,6 +181,11 @@ app.get('/api/blog-articles', (req, res) => {
 
 app.get('/api/blog-articles/:id', (req, res) => {
     const id = req.params.id;
+
+    if (antiPathTransversalAttack(id)) {
+        return res.sendStatus(StatusCodes.BAD_REQUEST);
+    }
+
     const response = blogArticles.find((article) => article.id === id);
     const found = response !== undefined;
     res.status(found ? StatusCodes.OK : StatusCodes.NOT_FOUND);

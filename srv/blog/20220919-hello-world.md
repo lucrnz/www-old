@@ -13,7 +13,7 @@ I enjoy lurking, it's how I am, creating textual content was not something that 
 
 Blogs are probably an overused type for a personal site, but who cares? Writing about random stuff sounds really fun!
 
-!["Cup filled with coffee near book"](/images/0)
+!["Cup filled with coffee near book"](/image/0)
 
 # Programming
 

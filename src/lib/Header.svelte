@@ -14,7 +14,7 @@
 </header>
 
 <style lang="scss">
-    @use '../../variables' as v;
+    @use '../variables' as v;
 
     header {
         @include v.text-config;

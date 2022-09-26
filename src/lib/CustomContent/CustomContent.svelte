@@ -1,10 +1,10 @@
 <script lang="ts">
     import SvelteMarkdown from 'svelte-markdown';
     import type { Renderers } from 'svelte-markdown';
-    import Paragraph from './Paragraph.svelte';
-    import Image from './Image.svelte';
-    import Link from './Link.svelte';
-    import Title from './Title.svelte';
+    import Paragraph from '@lib/Paragraph.svelte';
+    import Image from './Adapters/Image.svelte';
+    import Link from '@lib/Link.svelte';
+    import Title from '@lib/Title.svelte';
 
     export let contents: string = '';
 

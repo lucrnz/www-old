@@ -8,6 +8,7 @@
     import NotFoundPage from './NotFoundPage.svelte';
     import Status from '@lib/Status.svelte';
     import Wrapper from '@lib/Wrapper.svelte';
+    import CustomContent from '@lib/CustomContent/CustomContent.svelte';
 
     export let id = '';
     const validId = id.length > 0;
@@ -50,9 +51,7 @@
     <Wrapper>
         <Status isLoading={$isLoading} haveError={$haveError} retry={loadPage}>
             {#if Object.keys($pageContent).length > 0}
-                {#each $pageContent.contents as renderableContent}
-                    <RenderableContent contents={renderableContent} />
-                {/each}
+                <CustomContent contents={$pageContent.contents} />
             {/if}
         </Status>
     </Wrapper>

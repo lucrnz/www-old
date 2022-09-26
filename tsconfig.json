@@ -17,6 +17,7 @@
         "checkJs": true,
         "isolatedModules": true,
         "paths": {
+            "@assets/*": ["src/assets/*"],
             "@config/*": ["src/config/*"],
             "@lib/*": ["src/lib/*"],
             "@pages/*": ["src/pages/*"],
