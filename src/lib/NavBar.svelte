@@ -46,13 +46,12 @@
 
     .nav-btn {
         @include v.border-radius-strong;
-        @include v.nav-bar-font-size;
+        @include v.nav-btn-font-size;
 
         color: v.$white;
         border: 0.1rem solid v.$primary;
 
         margin-left: 0.3rem;
-        font-size: 1rem;
         padding: 0.4rem;
 
         @media (min-width: 375px) {
@@ -63,7 +62,6 @@
         @media (min-width: 1024px) {
             margin-left: 0.5rem;
             padding: 0.5rem 1rem 0.5rem 1rem;
-            font-size: 1.25rem;
         }
 
         &:hover {

@@ -4,6 +4,7 @@ $primary: #ff9737;
 $secondary: #785d4a;
 $gray: #4d4841;
 $green: #49ebb1;
+$fontsize: 1.25rem;
 
 @mixin text-config {
     letter-spacing: 0.02rem;
@@ -23,7 +24,7 @@ $green: #49ebb1;
     }
 
     @media (min-width: 1024px) {
-        width: 50vw;
+        width: 70ch;
     }
 }
 
@@ -35,15 +36,43 @@ $green: #49ebb1;
     }
 
     @media (min-width: 1024px) {
-        width: 90vw;
+        width: 95vw;
     }
 }
 
-@mixin nav-bar-font-size {
-    font-size: 1rem;
+@mixin font-size {
+    font-size: $fontsize * 0.89;
 
-    @media (min-width: 768px) {
-        font-size: 1.25rem;
+    @media (min-width: 375px) {
+        font-size: $fontsize;
+    }
+}
+
+@mixin header-font-size {
+    font-size: $fontsize * 1.25;
+
+    @media (min-width: 375px) {
+        font-size: $fontsize * 1.35;
+    }
+}
+
+@mixin title-font-size {
+    font-size: $fontsize * 1.65;
+}
+
+@mixin footer-font-size {
+    font-size: $fontsize * 0.8;
+
+    @media (min-width: 375px) {
+        font-size: $fontsize * 0.9;
+    }
+}
+
+@mixin nav-btn-font-size {
+    font-size: $fontsize * 0.8;
+
+    @media (min-width: 375px) {
+        font-size: $fontsize;
     }
 }
 

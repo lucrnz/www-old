@@ -9,5 +9,6 @@
         @include v.text-config;
         font-weight: 300;
         word-wrap: break-word;
+        margin: 0.8rem 0 0.8rem 0;
     }
 </style>

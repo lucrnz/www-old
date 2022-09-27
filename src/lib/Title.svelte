@@ -5,6 +5,8 @@
 
     h2 {
         @include v.text-config;
-        margin: 1rem 0 0.5rem 0;
+        @include v.header-font-size;
+        margin: 1rem 0 1rem 0;
+        font-weight: 500;
     }
 </style>

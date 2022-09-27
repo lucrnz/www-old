@@ -33,16 +33,21 @@
     </p>
     <p>
         Made using <a href="https://svelte.dev/" target="_blank">Svelte</a> and
-        <a href="https://vitejs.dev/" target="_blank">Vite</a>.
-    </p>
-    <p>
-        Hosted by love at
+        <a href="https://vitejs.dev/" target="_blank">Vite</a>. Hosted by love @
         <a href="https://discord-linux.com/">dlinux</a>
     </p>
 </footer>
 
 <style lang="scss">
     @use '../variables.scss' as v;
+
+    footer {
+        @include v.text-config;
+        @include v.footer-font-size;
+        font-weight: 300;
+        margin: 2rem 0 0 0;
+        color: scale-color(v.$white, $alpha: -30%);
+    }
 
     .copyright > a {
         &,
@@ -71,12 +76,5 @@
         background-repeat: no-repeat;
         background-position-y: bottom;
         background-image: var(--url);
-    }
-
-    footer {
-        @include v.text-config;
-        margin: 2rem 0 0 0;
-        font-weight: 300;
-        color: scale-color(v.$white, $alpha: -30%);
     }
 </style>

@@ -14,6 +14,7 @@
     article {
         @include v.mx-auto;
         @include v.page-size;
+        @include v.font-size;
         padding: 1rem 0 1rem 0;
     }
 </style>

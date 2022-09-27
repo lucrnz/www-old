@@ -20,12 +20,16 @@
         @include v.text-config;
         padding: 1rem 0 1rem 0;
         background-color: scale-color(v.$black, $lightness: +5%);
-        height: 12rem;
+        height: 11.5rem;
+
+        @media (min-width: 375px) {
+            height: 12rem;
+        }
 
         @media (min-width: 1024px) {
             position: sticky;
             top: 0;
-            height: 4rem;
+            height: 3.5rem;
             padding: 0.5rem 0 0.5rem 0;
         }
     }
@@ -48,17 +52,17 @@
     }
 
     h1 {
+        @include v.title-font-size;
+        font-family: 'Poppins', sans-serif;
         display: inline-block;
         vertical-align: middle;
         color: v.$green;
         margin: 0.7rem 0 0.7rem 0;
         font-weight: 700;
         letter-spacing: 0.2rem;
-        font-size: 2rem;
 
         @media (min-width: 1024px) {
-            margin: 0 0.5rem 0 0;
-            font-size: 2.2rem;
+            margin: 0;
         }
     }
 

@@ -1,4 +1,6 @@
 @use './variables' as v;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
 
 * {
     margin: 0;
@@ -8,7 +10,7 @@
 }
 
 :root {
-    font-family: 'Poppins', Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Ubuntu', Inter, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5rem;
     font-synthesis: none;

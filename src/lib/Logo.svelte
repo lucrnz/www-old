@@ -31,9 +31,9 @@
             margin-right: 1rem;
             display: inline-block;
             vertical-align: middle;
-            height: 3.4rem;
-            width: 3.4rem;
-            padding: 0.3rem;
+            height: 3.2rem;
+            width: 3.2rem;
+            padding: 0.2rem;
             background-size: 3rem;
         }
     }
