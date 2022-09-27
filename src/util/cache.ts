@@ -26,7 +26,7 @@ export const isCached = async (
 
         const timeNow = new Date();
 
-        const expiryReached = timeNow.getTime() >= item.expiry;
+        const expiryReached = item.expiry > 0 ? timeNow.getTime() >= item.expiry : true;
 
         if (!expiryReached) {
             return resolve(true);
@@ -36,7 +36,7 @@ export const isCached = async (
             getHash(itemName)
                 .then((hash: string) => {
                     if (item.hash === hash) {
-                        item.expiry = timeNow.getTime() + cacheMaxTimeMs;
+                        item.expiry = cacheMaxTimeMs > 0 ? timeNow.getTime() + cacheMaxTimeMs : 0;
                         localStorage.setItem(`${localStorageItemName}_meta`, JSON.stringify(item));
                         return resolve(true);
                     } else {

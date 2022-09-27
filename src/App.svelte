@@ -5,9 +5,7 @@
     import { contentPageId } from '$config/contentPageId';
     import Header from '$lib/Header.svelte';
     import NotFoundPage from '$pages/NotFoundPage.svelte';
-    import HomePage from '$pages/HomePage.svelte';
     import ContentPage from '$pages/ContentPage.svelte';
-    import ToolsPage from '$pages/ToolsPage.svelte';
     import BlogPage from '$pages/BlogPage.svelte';
 
     onMount(log.bind(null, '🦄 App mounted'));
@@ -19,9 +17,13 @@
         <Route path="about">
             <ContentPage id={contentPageId.AboutMe} />
         </Route>
-        <Route path="tools" component={ToolsPage} />
+        <Route path="tools">
+            <ContentPage id={contentPageId.Tools} />
+        </Route>
         <Route path="blog/*route" component={BlogPage} />
-        <Route path="/" component={HomePage} />
+        <Route path="/">
+            <ContentPage id={contentPageId.Home} />
+        </Route>
         <Route component={NotFoundPage} />
     </main>
 </Router>

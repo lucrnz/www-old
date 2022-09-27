@@ -1,6 +1,7 @@
 import { imageById } from '$config/apiRoute';
 import { blobToBase64 } from '$util/blobToBase64';
 import { getCache, setCache } from '$util/cache';
+import { cacheIsEnabled } from '$config/cache';
 import { log } from '$util/devMode';
 
 const getHash = (route: string): Promise<string> =>
@@ -45,7 +46,7 @@ export const fetchApi = (route: string): Promise<any> =>
                     }
                 });
 
-            const cache = await getCache(routeAsCacheName, getHashAdapter);
+            const cache = cacheIsEnabled ? await getCache(routeAsCacheName, getHashAdapter) : '';
 
             let result: any = {};
             if (cache.length > 0) {
@@ -63,7 +64,9 @@ export const fetchApi = (route: string): Promise<any> =>
                     try {
                         const resultStr = await fetchResponse.text();
                         const hash = await getHashAdapter('');
-                        await setCache(routeAsCacheName, resultStr, hash);
+                        if (cacheIsEnabled) {
+                            await setCache(routeAsCacheName, resultStr, hash);
+                        }
                         result = JSON.parse(resultStr);
                     } catch (err) {
                         log(err, true);
@@ -99,7 +102,7 @@ export const fetchImageById = (imageId: number): Promise<any> =>
                     }
                 });
 
-            const cache = await getCache(routeAsCacheName, getHashAdapter);
+            const cache = cacheIsEnabled ? await getCache(routeAsCacheName, getHashAdapter) : '';
 
             if (cache.length > 0) {
                 return resolve({ found: true, response: cache });
@@ -124,7 +127,9 @@ export const fetchImageById = (imageId: number): Promise<any> =>
             if (result.length > 0) {
                 try {
                     const hash = await getHashAdapter('');
-                    await setCache(routeAsCacheName, result, hash);
+                    if (cacheIsEnabled) {
+                        await setCache(routeAsCacheName, result, hash);
+                    }
                 } catch (err) {
                     log(err, true);
                 }

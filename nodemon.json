@@ -1,6 +1,6 @@
 {
     "watch": ["srv", "dist", "src"],
-    "ext": "ts, js, html, css",
+    "ext": "ts, js, html, css, md",
     "execMap": {
         "ts": "node --loader ts-node/esm"
     }

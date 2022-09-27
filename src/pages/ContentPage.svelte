@@ -52,6 +52,7 @@
         <Status isLoading={$isLoading} haveError={$haveError} retry={loadPage}>
             {#if Object.keys($pageContent).length > 0}
                 <CustomContent contents={$pageContent.contents} />
+                <slot />
             {/if}
         </Status>
     </Wrapper>
