@@ -1,4 +1,5 @@
 import express from 'express';
+import expressStaticGzip from 'express-static-gzip';
 import dotenv from 'dotenv';
 import type { BinaryLike } from 'node:crypto';
 import { createHash } from 'node:crypto';
@@ -11,7 +12,6 @@ import { StatusCodes } from 'http-status-codes';
 import type { ContentPage } from '../src/types/ContentPage';
 import type { BlogArticle } from '../src/types/BlogArticle';
 import { spawnSync } from 'node:child_process';
-import expressStaticGzip from 'express-static-gzip';
 
 const baseDir = dirname(fileURLToPath(import.meta.url));
 const spaDir = resolve(join(baseDir, '..', 'dist'));
@@ -289,8 +289,6 @@ app.get('/api/blog-articles/:id', (req, res) => {
         return res.json({ response: resource.value });
     }
 });
-
-// app.use('/', express.static(spaDir));
 
 app.use(
     '/',
