@@ -1,10 +1,8 @@
 <!-- {
-    "title": "Hello World - Why I created my website after 10 years",
-    "creationDate": "1663556808991",
-    "description": "My expirience building this site."
+    "title": "Hello World: The suffering of modern web development.",
+    "creationDate": "1664329953541",
+    "description": "My experience building this site and how modern web development is."
 } -->
-
-# Hello World - Why I created my website after 10 years
 
 Finally, after coding for hours non-stop, and reading a lot of blogs while wishing to have my own, I can start mine. It's been a while since I have a website... probably around 10 years.
 
@@ -16,7 +14,7 @@ Blogs are probably an overused type for a personal site, but who cares? Writing 
 
 # Programming
 
-I started coding this site around 14 days ago, looking back its really over-engineered and probably not a great idea, but I really wanted to do an SPA [(Single-page-App)](https://en.wikipedia.org/wiki/Single-page_application) there are a lot of tools to easily get a blog running, but I just didn't wanted to take the easy path.
+I started coding this site around two weeks days ago, giving it about 2 to 4 hours of coding every day, looking back its really over-engineered and probably not a great idea, but I really wanted to do an SPA [(Single-page-App)](https://en.wikipedia.org/wiki/Single-page_application) there are a lot of tools to easily get a blog running, but I just didn't wanted to take the easy path.
 
 My own hand-crafted site, my original idea was to even create a JavaScript framework, but I ditched it inmediately after
 realizing it wasn't that easy: state management, know when to re-render components. I wanted all. Of course, I gave up.
@@ -47,6 +45,8 @@ Single page application for a blog was too much! It was re-inventing the wheel, 
 Wake up myself! Any web browser had this already built-in!
 
 [![Elephant Calf](/image/3)](https://www.pexels.com/photo/elephant-calf-133394/)
+
+Programming is really fun for me, and I got the original focus for the project lost over how entertained I was re-inventing everything I needed.
 
 I was reading the phrases server-side rendering, "MPA" (multi-page-application, or server-side routing) a lot of times, I was looking new frameworks emerge based on pure server-side routing.
 

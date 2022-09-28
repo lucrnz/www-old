@@ -9,6 +9,8 @@
     import Status from '$lib/Status.svelte';
     import Wrapper from '$lib/Wrapper.svelte';
     import CustomContent from '$lib/CustomContent/CustomContent.svelte';
+    import Title from '$lib/Title.svelte';
+    import { formatDate } from '$util/formatDate';
 
     export let id = '';
 
@@ -52,6 +54,10 @@
     <Wrapper>
         <Status isLoading={$isLoading} haveError={$haveError} retry={loadArticle}>
             {#if Object.keys($article).length > 0}
+                <Title>{$article.title}</Title>
+                <p class="info">
+                    {formatDate($article.creationDate)} • {$article.readTimeMinutes} minutes read.
+                </p>
                 <CustomContent contents={$article.contents} />
             {/if}
         </Status>
@@ -59,3 +65,13 @@
 {:else}
     <NotFoundPage retry={loadArticle} />
 {/if}
+
+<style lang="scss">
+    @use '../variables.scss' as v;
+
+    .info {
+        @include v.text-config;
+        @include v.footer-font-size;
+        font-weight: 300;
+    }
+</style>

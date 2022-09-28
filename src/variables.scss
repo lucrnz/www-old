@@ -61,10 +61,10 @@ $fontsize: 1.25rem;
 }
 
 @mixin footer-font-size {
-    font-size: $fontsize * 0.8;
+    font-size: $fontsize * 0.75;
 
     @media (min-width: 375px) {
-        font-size: $fontsize * 0.9;
+        font-size: $fontsize * 0.85;
     }
 }
 
