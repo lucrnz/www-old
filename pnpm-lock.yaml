@@ -11,8 +11,6 @@ specifiers:
     http-status-codes: ^2.2.0
     husky: ^8.0.1
     lint-staged: ^13.0.3
-    lodash: ^4.17.21
-    markdown-to-txt: ^2.0.1
     nodemon: ^2.0.20
     prettier: ^2.7.1
     prettier-plugin-svelte: ^2.7.0
@@ -32,8 +30,6 @@ dependencies:
     express: 4.18.1
     file-type: 18.0.0
     http-status-codes: 2.2.0
-    lodash: 4.17.21
-    markdown-to-txt: 2.0.1
     svelte-markdown: 0.2.3_svelte@3.50.1
     svelte-navigator: 3.2.2_iprco5tylfmvffqgrvqxc46njy
 
@@ -1615,27 +1611,6 @@ packages:
             wrap-ansi: 7.0.0
         dev: true
 
-    /lodash.escape/4.0.1:
-        resolution:
-            {
-                integrity: sha512-nXEOnb/jK9g0DYMr1/Xvq6l5xMD7GDG55+GSYIYmS0G4tBk/hURD4JR9WCavs04t33WmJx9kCyp9vJ+mr4BOUw==,
-            }
-        dev: false
-
-    /lodash.unescape/4.0.1:
-        resolution:
-            {
-                integrity: sha512-DhhGRshNS1aX6s5YdBE3njCCouPgnG29ebyHvImlZzXZf2SHgt+J08DHgytTPnpywNbO1Y8mNUFyQuIDBq2JZg==,
-            }
-        dev: false
-
-    /lodash/4.17.21:
-        resolution:
-            {
-                integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==,
-            }
-        dev: false
-
     /log-update/4.0.0:
         resolution:
             {
@@ -1683,17 +1658,6 @@ packages:
                 integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==,
             }
         dev: true
-
-    /markdown-to-txt/2.0.1:
-        resolution:
-            {
-                integrity: sha512-Hsj7KTN8k1gutlLum3vosHwVZGnv8/cbYKWVkUyo/D1rzOYddbDesILebRfOsaVfjIBJank/AVOySBlHAYqfZw==,
-            }
-        dependencies:
-            lodash.escape: 4.0.1
-            lodash.unescape: 4.0.1
-            marked: 4.1.0
-        dev: false
 
     /marked/4.1.0:
         resolution:

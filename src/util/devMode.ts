@@ -1,7 +1,9 @@
-export const isDevMode = (): boolean =>
-    import.meta.env && import.meta.env.MODE
-        ? import.meta.env.MODE.toLocaleLowerCase().startsWith('dev')
-        : false;
+export const isDevMode = (): boolean => {
+    if (import.meta.env !== undefined && import.meta.env.MODE === 'development') {
+        return true;
+    }
+    return false;
+};
 
 export const log = (message: string, isError: boolean = false) => {
     if (!isDevMode()) {
