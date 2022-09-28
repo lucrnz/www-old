@@ -1,10 +1,8 @@
 <script lang="ts">
-    export let url: string;
-    export let alt: string;
-    export let value: string;
+    export let href: string;
 </script>
 
-<a href={url} target="_blank" aria-label={alt}>{value}</a>
+<a href={href} target="_blank"><slot /></a>
 
 <style lang="scss">
     @use '../variables.scss' as v;

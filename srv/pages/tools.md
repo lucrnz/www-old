@@ -8,4 +8,4 @@ For now it's empty...
 
 Enjoy the silence.
 
-!["Astronaut floating in space"](/image/1)
+[![Astronaut floating in space](/image/1)](https://unsplash.com/photos/Yj1M5riCKk4)

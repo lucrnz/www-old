@@ -5,6 +5,7 @@
     import Image from './Adapters/Image.svelte';
     import Link from '$lib/Link.svelte';
     import Title from '$lib/Title.svelte';
+    import List from '$lib/List.svelte';
 
     export let contents: string = '';
 
@@ -13,6 +14,7 @@
         image: Image,
         link: Link,
         heading: Title,
+        list: List,
     };
 </script>
 

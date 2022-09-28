@@ -1,6 +1,3 @@
-// @TODO:   Node + TypeScript is really weird as a backend ???
-//          .NET Core C# M̶i̶c̶r̶o̶s̶o̶f̶t̶ ̶D̶a̶d̶d̶y̶ ?? Go ? Rust? Deno?? P̶y̶t̶h̶o̶n̶ ̶+̶ ̶F̶l̶a̶s̶k̶
-
 import express from 'express';
 import dotenv from 'dotenv';
 import type { BinaryLike } from 'node:crypto';
@@ -13,12 +10,35 @@ import { readFile } from 'fs/promises';
 import { StatusCodes } from 'http-status-codes';
 import type { ContentPage } from '../src/types/ContentPage';
 import type { BlogArticle } from '../src/types/BlogArticle';
+import { spawnSync } from 'node:child_process';
 
 const baseDir = dirname(fileURLToPath(import.meta.url));
 const spaDir = resolve(join(baseDir, '..', 'dist'));
 const imgDir = resolve(join(baseDir, '..', 'img'));
 const blogDir = resolve(join(baseDir, 'blog'));
 const pagesDir = resolve(join(baseDir, 'pages'));
+const markdownToTextBinary = join(
+    baseDir,
+    'markdownToText',
+    'bin',
+    'Release',
+    'net6.0',
+    'markdownBinary'
+);
+
+console.log(`⏲️ Loading server...`);
+
+if (!existsSync(markdownToTextBinary)) {
+    console.error('markdownToText binary could not be found. Did you forget to build it?');
+    process.exit(1);
+}
+
+const markdownToText = (markdownContents: string) =>
+    spawnSync(markdownToTextBinary, [], {
+        input: markdownContents,
+    })
+        .output.toString()
+        .trim();
 
 if (!existsSync(spaDir) || !existsSync(imgDir) || !existsSync(blogDir) || !existsSync(pagesDir)) {
     console.error('Error: Any of these folders does not exists', {
@@ -96,6 +116,13 @@ const readMarkdownFilesAndParseAttributes = (
     }
 };
 
+const calculateReadTimeMinutes = (contents: string): number => {
+    const wpm = 230;
+    const words = contents.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    return time;
+};
+
 const blogArticles: HashedResource<BlogArticle>[] = [];
 const contentPages: HashedResource<ContentPage>[] = [];
 
@@ -106,6 +133,7 @@ readMarkdownFilesAndParseAttributes(blogDir, (entry: ProcessEntryItem) => {
         contents: entry.contents,
         creationDate: new Date(Number(entry.attributes['creationDate'])),
         description: entry.attributes['description'],
+        readTimeMinutes: calculateReadTimeMinutes(markdownToText(entry.contents)),
     } as BlogArticle;
 
     const hash = hashData(
@@ -122,6 +150,7 @@ readMarkdownFilesAndParseAttributes(pagesDir, (entry: ProcessEntryItem) => {
         id: entry.fileNameNoExt,
         title: entry.attributes['title'],
         contents: entry.contents,
+        readTimeMinutes: calculateReadTimeMinutes(markdownToText(entry.contents)),
     } as ContentPage;
     const hash = hashData(`${page.id}${page.title}${page.contents}`);
 
