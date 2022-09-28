@@ -11,13 +11,23 @@ import { readFile } from 'fs/promises';
 import { StatusCodes } from 'http-status-codes';
 import type { ContentPage } from '../src/types/ContentPage';
 import type { BlogArticle } from '../src/types/BlogArticle';
-import { spawnSync } from 'node:child_process';
+// import { spawnSync } from 'node:child_process';
+console.log(`⏲️ Loading server...`);
+dotenv.config();
 
 const baseDir = dirname(fileURLToPath(import.meta.url));
 const spaDir = resolve(join(baseDir, '..', 'dist'));
 const imgDir = resolve(join(baseDir, '..', 'img'));
 const blogDir = resolve(join(baseDir, 'blog'));
 const pagesDir = resolve(join(baseDir, 'pages'));
+const robotsTxtPath = resolve(join(baseDir, '..', 'robots.txt'));
+const robotsTxt = existsSync(robotsTxtPath) ? readFileSync(robotsTxtPath).toString('utf8') : '';
+
+const searchEngineAuthFilePath: string = resolve(join(baseDir, '..', 'searchEngineAuth.json'));
+const searchEngineAuth = existsSync(searchEngineAuthFilePath)
+    ? JSON.parse(readFileSync(searchEngineAuthFilePath).toString('utf8'))
+    : { searchEngines: [] };
+
 // const markdownToTextBinary = join(
 //     baseDir,
 //     'markdownToText',
@@ -26,8 +36,6 @@ const pagesDir = resolve(join(baseDir, 'pages'));
 //     'net6.0',
 //     'markdownBinary'
 // );
-
-console.log(`⏲️ Loading server...`);
 
 // if (!existsSync(markdownToTextBinary)) {
 //     console.error('markdownToText binary could not be found. Did you forget to build it?');
@@ -166,7 +174,6 @@ readMarkdownFilesAndParseAttributes(pagesDir, (entry: ProcessEntryItem) => {
 console.log(`📄 Loaded ${blogArticles.length} blog articles.`);
 console.log(`📄 Loaded ${contentPages.length} pages.`);
 
-dotenv.config();
 const app = express();
 const port = (process.env.PORT ? Number(process.env.PORT) : 0) || 8000;
 
@@ -306,8 +313,28 @@ app.use(
     })
 );
 
-app.get('/*', (_, res) => {
-    res.sendFile(join(spaDir, 'index.html'));
+app.get('/*', (req, res) => {
+    if (req.url == '/robots.txt' && robotsTxt.length > 0) {
+        console.log('🤖 Serving robots.txt file');
+        res.writeHead(200, {
+            'Content-Type': `text/plain; charset=UTF-8`,
+            'Content-Length': robotsTxt.length,
+        });
+        return res.end(robotsTxt);
+    }
+    if (searchEngineAuth.searchEngines.length > 0) {
+        for (const searchEngine of searchEngineAuth.searchEngines) {
+            if (req.url === `/${searchEngine.fileName}`) {
+                console.log(`✅ Verified ${searchEngine.engineName}`);
+                res.writeHead(200, {
+                    'Content-Type': `${searchEngine.fileType}; charset=UTF-8`,
+                    'Content-Length': searchEngine.contents.length,
+                });
+                return res.end(searchEngine.contents);
+            }
+        }
+    }
+    return res.sendFile(join(spaDir, 'index.html'));
 });
 
 app.listen(port, () => console.log(`🦄 Server listening on port ${port}`));
