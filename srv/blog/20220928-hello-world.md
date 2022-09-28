@@ -30,11 +30,11 @@ node_modules folders, light frameworks that prove to be mature keep the bundle s
 
 [TypeScript](https://www.typescriptlang.org/) also changed my mind, as it turned the unpredictible mess that JavaScript is into something that I can rely on.
 
-The back-end is just a simple [Express](https://expressjs.com/) server wrote with TypeScript, using express.static for the SPA, on the initial load markdown files will be loaded to memory as Arrays of resources, to respond faster to requests. For routes that load files from the disk on demand, I took special care to protect it against [directory transversal attack](https://en.wikipedia.org/wiki/Directory_traversal_attack).
+The back-end is just a simple [Express](https://expressjs.com/) server wrote with TypeScript, using express.static for the SPA, at startup it loads markdown files into memory as Arrays of resources, to respond faster to requests. For routes that load files from the disk on demand, I took special care to protect it against [directory transversal attack](https://en.wikipedia.org/wiki/Directory_traversal_attack).
 
-Today I finished writing the cache module: it would save the response on [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), while appending an expiry date, when a fetch from the backend is requested, the cache module would respond while first checking the expiry date, if its expired, it will make the fetch request but with an special flag to just get the sha-256 hash of the response, if the hash is the same, the cached resource will be returned, if it differs it will be deleted.
+Today I finished writing the cache module: it would save the response on [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), while appending an expiry date, If the user requests a resource, the cache module will respond by first checking the expiry date, if its expired it will compare the sha-256 hash with the server, and use the cached resource if its still valid. This way it avoids transfering the resource over the network again.
 
-The site works, it loads articles from the server that are Markdown text and renders them on the screen using my custom Svelte components with all the carefully added styling. It was great! Or so I thought..
+The site works, it loads articles from the server that are Markdown text and renders them on the screen using my custom [Svelte](https://svelte.dev) components with all the carefully added styling. It was great! Or so I thought..
 
 # Reflection and conclusion
 
