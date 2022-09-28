@@ -1,0 +1,5 @@
+{
+    "name": "www",
+    "script": "pnpm",
+    "args": "exec nodemon srv/server.ts"
+}
