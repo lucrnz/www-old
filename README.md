@@ -1,10 +1,10 @@
-# Luc/Lucie/Lucien website old code
+# Luc's website old code
 
-Hi, this is [my website](https://lucdev.net) old code
+Hi, this is [my website](https://lucdev.net) old code.
 
 It parses markdown on the client side and has a Node + TypeScript backend
 
-You can read [the article](https://lucdev.net/blog/20220928-hello-world/) to know how I created the site and what were my ideas at the moment
+You can read [the writeup](https://lucdev.net/blog/20220928-hello-world/) to know how I created the site and what were my ideas at that moment.
 
 # Getting started
 
